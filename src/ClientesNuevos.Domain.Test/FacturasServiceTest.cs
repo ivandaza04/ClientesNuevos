@@ -16,7 +16,7 @@ namespace ClientesNuevos.Domain.Test
         public void GetFacturas_ReturnFacturas()
         {
             var Facturas = GetTestListaFacturas();
-            var Servicio = new FacturasService(Facturas);
+            var Servicio = new FacturaService(Facturas);
 
             var result = Servicio.ConsultaFacturas() as List<Factura>;
 
@@ -25,52 +25,54 @@ namespace ClientesNuevos.Domain.Test
         }
 
         [Test]
-        public void FacturaRangoFecha_ReturnTrue()
+        public void FacturaRangoFecha_ReturnBoolean()
         {
             var Facturas = GetTestListaFacturas();
-            var Servicio = new FacturasService(Facturas);
+            var Servicio = new FacturaService(Facturas);
 
-            var FechaCreacion = new DateTime(2022, 3, 25);
+            // Rango de Fechas
             var fechaInicio = new DateTime(2022, 3, 25);
             var fechaFinal = new DateTime(2022, 4, 25);
 
-            var result = Servicio.FacturaRangoFecha(FechaCreacion, fechaInicio, fechaFinal);
+            // Fecha en el rango
+            var FechaCreacionRangoTrue = new DateTime(2022, 3, 25);
+            // Fecha en fuera del rango
+            var FechaCreacionRangoFalse = new DateTime(2022, 2, 25);
 
-            Assert.IsNotNull(Facturas[0]);
-            Assert.AreEqual(true, result);
-        }
+            var resultTrue = Servicio.FacturaRangoFecha(FechaCreacionRangoTrue, fechaInicio, fechaFinal);
+            var resultFalse = Servicio.FacturaRangoFecha(FechaCreacionRangoFalse, fechaInicio, fechaFinal);
 
-        [Test]
-        public void FacturaRangoFecha_ReturnFalse()
-        {
-            var Facturas = GetTestListaFacturas();
-            var Servicio = new FacturasService(Facturas);
-
-            var FechaCreacion = new DateTime(2022, 2, 25);
-            var fechaInicio = new DateTime(2022, 3, 25);
-            var fechaFinal = new DateTime(2022, 4, 25);
-
-            var result = Servicio.FacturaRangoFecha(FechaCreacion, fechaInicio, fechaFinal);
-
-            Assert.IsNotNull(Facturas[0]);
-            Assert.AreEqual(false, result);
+            Assert.IsNotNull(Facturas.Count);
+            Assert.IsTrue(resultTrue);
+            Assert.IsFalse(resultFalse);
         }
 
         [Test]
         public void ConsultaFacturasFecha_ReturnFacturasFecha()
         {
+            var Facturas = GetTestListaFacturas();
+            var Servicio = new FacturaService(Facturas);
 
+            // Rango de Fechas
+            var fechaInicio = new DateTime(2022, 3, 25);
+            var fechaFinal = new DateTime(2022, 4, 25);
+
+            var result = Servicio.ConsultaFacturasFecha(fechaInicio, fechaFinal);
+            var resultEsperado = 1;
+
+            Assert.IsNotNull(Facturas.Count);
+            Assert.AreEqual(resultEsperado, result.Count);
         }
 
-            private List<Factura> GetTestListaFacturas()
+        private List<Factura> GetTestListaFacturas()
         {
             var testFacturas = new List<Factura>();
-            testFacturas.Add(GetTestFactura());
-
+            testFacturas.Add(GetTestFactura1());
+            testFacturas.Add(GetTestFactura2());
             return testFacturas;
         }
 
-        private Factura GetTestFactura()
+        private Factura GetTestFactura1()
         {
             var testFactura = new Factura
             {
@@ -81,6 +83,36 @@ namespace ClientesNuevos.Domain.Test
                 Pagado = false,
                 FechaUltimaComunicacion = DateTime.Now,
                 FechaCreacion = new DateTime(2022, 4, 20),
+                InicioFactura = DateTime.Now,
+                FinFactura = DateTime.Now,
+                PathPdf = "test",
+                SubTotal = "test",
+                RetencionEnFuente = "",
+                Iva = "",
+                Total = "test",
+                Token = "test",
+                TransactionId = "test",
+                TransactionCode = "test",
+                TransactionMessage = "test",
+                FechaTransaccion = DateTime.Now,
+                DescuentoVolumen = false,
+                DescuentoAntiguedad = false,
+            };
+
+            return testFactura;
+        }
+
+        private Factura GetTestFactura2()
+        {
+            var testFactura = new Factura
+            {
+                _id = "2",
+                Codigo = "Demo1",
+                IdAbogado = "2",
+                Estado = "test",
+                Pagado = false,
+                FechaUltimaComunicacion = DateTime.Now,
+                FechaCreacion = new DateTime(2022, 3, 20),
                 InicioFactura = DateTime.Now,
                 FinFactura = DateTime.Now,
                 PathPdf = "test",

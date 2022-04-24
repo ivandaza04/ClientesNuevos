@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClientesNuevos.Domain.Services
 {
-    public interface IFacturasService
+    public interface IFacturaService
     {
         public List<Factura> ConsultaFacturas();
 

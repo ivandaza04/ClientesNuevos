@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ClientesNuevos.Domain.Services
 {
-    public class FacturasService : IFacturasService
+    public class FacturaService : IFacturaService
     {
         List<Factura> Facturas = new List<Factura>();
 
-        public FacturasService(List<Factura> facturas)
+        public FacturaService(List<Factura> facturas)
         {
             Facturas = facturas;
         }
@@ -23,11 +23,14 @@ namespace ClientesNuevos.Domain.Services
 
         public List<Factura> ConsultaFacturasFecha(DateTime fechaInicio, DateTime fechaFinal)
         {
-            foreach (Factura factura in Facturas)
-                if (FacturaRangoFecha(factura.FechaCreacion, fechaInicio, fechaFinal) != true)
-                    Facturas.Remove(factura);
+            var FacturasEnFecha = new List<Factura>();
+            foreach (Factura F in Facturas)
+                if (FacturaRangoFecha(F.FechaCreacion, fechaInicio, fechaFinal) == true)
+                {
+                    FacturasEnFecha.Add(F);
+                }
 
-            return Facturas;
+            return FacturasEnFecha;
         }
 
         public bool FacturaRangoFecha(DateTime FechaCreacion, DateTime fechaInicio, DateTime fechaFinal)
