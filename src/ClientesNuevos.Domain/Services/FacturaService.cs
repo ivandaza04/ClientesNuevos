@@ -11,7 +11,7 @@ namespace ClientesNuevos.Domain.Services
     {
         List<Factura> Facturas = new List<Factura>();
         List<Factura> IdAbogados = new List<Factura>();
-        List<Factura> UsuariosNuevos = new List<Factura>();
+        List<UsuarioNuevo> UsuariosNuevos = new List<UsuarioNuevo>();
 
         public FacturaService(List<Factura> facturas)
         {
@@ -50,14 +50,14 @@ namespace ClientesNuevos.Domain.Services
             return IdAbogados;
         }
 
-        public List<Factura> ConsultaIdAbogados_FacturasFecha(List<Factura> ListaIdAbogados, DateTime FechaMax)
+        public List<UsuarioNuevo> ConsultaIdAbogados_FacturasFecha(List<Factura> ListaIdAbogados, DateTime FechaMax)
         {
             var IdAbogadoContado = 0;
-            foreach (Factura A in ListaIdAbogados)
+            foreach (Factura iteracion in ListaIdAbogados)
             {
-                IdAbogadoContado = ContarIdAbogado(A.IdAbogado, FechaMax);
+                IdAbogadoContado = ContarIdAbogado(iteracion.IdAbogado, FechaMax);
                 if (IdAbogadoContado == 1)
-                    UsuariosNuevos.Add(A);
+                    UsuariosNuevos.Add(new UsuarioNuevo(iteracion.IdAbogado, iteracion.Codigo, iteracion.SubTotal, iteracion.FechaCreacion));
             }
 
             return UsuariosNuevos;

@@ -11,11 +11,14 @@ namespace ClientesNuevos
         static void Main(string[] args)
         {
             Console.WriteLine("Imprimir Facturas!");
-            FacturaImplement Implement = new FacturaImplement();
-            FacturaService Servicio = new FacturaService(Implement.GetFacturas());
+            FacturaImplement FacturaImplement = new FacturaImplement();
+            UsuarioNuevoImplement UsuarioNuevoImpl = new UsuarioNuevoImplement();
+
+
+            FacturaService FacturaServicio = new FacturaService(FacturaImplement.GetFacturas());
 
             List<Factura> ListaFacturas = new List<Factura>();
-            ListaFacturas = Servicio.ConsultaFacturas();
+            ListaFacturas = FacturaServicio.ConsultaFacturas();
 
             foreach (Factura F in ListaFacturas)
             {
@@ -26,19 +29,20 @@ namespace ClientesNuevos
             // Facturas en el 5 del 2015
             var FechaMin = new DateTime(2015, 5, 1);
             var FechaMax = new DateTime(2015, 5, 30);
-            ListaIdAbogadosFacturasEnFecha = Servicio.ConsultaIdAbogados_FacturasFecha(FechaMin, FechaMax);
+            ListaIdAbogadosFacturasEnFecha = FacturaServicio.ConsultaIdAbogados_FacturasFecha(FechaMin, FechaMax);
             Console.WriteLine("Todos los IdAbogados de facturas en Fecha " + FechaMin + " - " + FechaMax);
-            foreach (Factura A in ListaIdAbogadosFacturasEnFecha)
+            foreach (Factura iteracion in ListaIdAbogadosFacturasEnFecha)
             {
-                Console.WriteLine("IdAbogado: " + A.IdAbogado);
+                Console.WriteLine("IdAbogado: " + iteracion.IdAbogado);
             }
 
-            List<Factura> ListaIdAbogadosUsuarioasNuevos = new List<Factura>();
-            ListaIdAbogadosUsuarioasNuevos = Servicio.ConsultaIdAbogados_FacturasFecha(ListaIdAbogadosFacturasEnFecha, FechaMax);
+            List<UsuarioNuevo> ListaIdAbogadosUsuarioasNuevos = new List<UsuarioNuevo>();
+            ListaIdAbogadosUsuarioasNuevos = FacturaServicio.ConsultaIdAbogados_FacturasFecha(ListaIdAbogadosFacturasEnFecha, FechaMax);
             Console.WriteLine("Todos los IdAbogados como usuarios nuevos en Fecha " + FechaMin + " - " + FechaMax);
-            foreach (Factura A in ListaIdAbogadosUsuarioasNuevos)
+            foreach (UsuarioNuevo iteracion in ListaIdAbogadosUsuarioasNuevos)
             {
-                Console.WriteLine("IdAbogado Nuevos: " + A.IdAbogado);
+                Console.WriteLine("IdAbogado Nuevos: " + iteracion.IdAbogado);
+                UsuarioNuevoImpl.CreateUsuarioNuevo(iteracion);
             }
         }
     }
