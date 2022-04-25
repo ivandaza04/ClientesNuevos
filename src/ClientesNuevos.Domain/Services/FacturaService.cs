@@ -23,6 +23,17 @@ namespace ClientesNuevos.Domain.Services
             return Facturas;
         }
 
+        public List<Factura> ConsultaFacturasFecha(DateTime FechaMin, DateTime FechaMax)
+        {
+            foreach (Factura iteracion in Facturas)
+                if (FacturaRangoFecha(iteracion.FechaCreacion, FechaMin, FechaMax) == true)
+                {
+                    IdAbogados.Add(iteracion);
+                }
+
+            return IdAbogados;
+        }
+
         public bool FacturaRangoFecha(DateTime FechaCreacion, DateTime FechaMin, DateTime FechaMax)
         {
             var FacturaAnteriorFechaMin = DateTime.Compare(FechaCreacion, FechaMin);
@@ -39,25 +50,14 @@ namespace ClientesNuevos.Domain.Services
                 return false;
         }
 
-        public List<Factura> ConsultaIdAbogados_FacturasFecha(DateTime FechaMin, DateTime FechaMax)
-        {
-            foreach (Factura iteracion in Facturas)
-                if (FacturaRangoFecha(iteracion.FechaCreacion, FechaMin, FechaMax) == true)
-                {
-                    IdAbogados.Add(iteracion);
-                }
-
-            return IdAbogados;
-        }
-
-        public List<UsuarioNuevo> ConsultaIdAbogados_FacturasFecha(List<Factura> ListaIdAbogados, DateTime FechaMax)
+        public List<UsuarioNuevo> ConsultaIdAbogadoEsUsuarioNuevo(List<Factura> ListaIdAbogados, DateTime FechaMax)
         {
             var IdAbogadoContado = 0;
             foreach (Factura iteracion in ListaIdAbogados)
             {
                 IdAbogadoContado = ContarIdAbogado(iteracion.IdAbogado, FechaMax);
                 if (IdAbogadoContado == 1)
-                    UsuariosNuevos.Add(new UsuarioNuevo(iteracion.IdAbogado, iteracion.Codigo, iteracion.SubTotal, iteracion.FechaCreacion));
+                    UsuariosNuevos.Add(new UsuarioNuevo(iteracion._id, iteracion.IdAbogado, iteracion.Codigo, iteracion.SubTotal, iteracion.FechaCreacion));
             }
 
             return UsuariosNuevos;
