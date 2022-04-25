@@ -41,10 +41,10 @@ namespace ClientesNuevos.Domain.Services
 
         public List<Factura> ConsultaIdAbogados_FacturasFecha(DateTime FechaMin, DateTime FechaMax)
         {
-            foreach (Factura F in Facturas)
-                if (FacturaRangoFecha(F.FechaCreacion, FechaMin, FechaMax) == true)
+            foreach (Factura iteracion in Facturas)
+                if (FacturaRangoFecha(iteracion.FechaCreacion, FechaMin, FechaMax) == true)
                 {
-                    IdAbogados.Add(F);
+                    IdAbogados.Add(iteracion);
                 }
 
             return IdAbogados;
@@ -66,10 +66,10 @@ namespace ClientesNuevos.Domain.Services
         public int ContarIdAbogado(String IdAbogado, DateTime FechaMax)
         {
             var NIdAbogados = 0;
-            foreach (Factura F in Facturas)
-                if (F.IdAbogado == IdAbogado)
+            foreach (Factura iteracion in Facturas)
+                if (iteracion.IdAbogado == IdAbogado)
                 {
-                    if (DateTime.Compare(F.FechaCreacion, FechaMax) <= 0)
+                    if (DateTime.Compare(iteracion.FechaCreacion, FechaMax) <= 0)
                     {
                         NIdAbogados++;
                     }
