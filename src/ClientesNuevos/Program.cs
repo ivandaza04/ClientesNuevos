@@ -18,17 +18,28 @@ namespace ClientesNuevos
             ListaFacturas = Servicio.ConsultaFacturas();
 
             foreach (Factura F in ListaFacturas)
-                Console.WriteLine("Codigo Factura: " + F.Codigo+" Fecha: "+F.FechaCreacion);
-
+            {
+                Console.WriteLine("Codigo Factura: " + F.Codigo + " Fecha: " + F.FechaCreacion);
+            }
             
             List<Factura> ListaIdAbogadosFacturasEnFecha = new List<Factura>();
             // Facturas en el 5 del 2015
-            var fechaInicio = new DateTime(2015, 5, 1);
-            var fechaFinal = new DateTime(2015, 5, 30);
-            Console.WriteLine("Imprimir IdAbogados de facturas en Fecha "+fechaInicio+" - "+ fechaFinal);
-            ListaIdAbogadosFacturasEnFecha = Servicio.ConsultaIdAbogados_FacturasFecha(fechaInicio, fechaFinal);
+            var FechaMin = new DateTime(2015, 5, 1);
+            var FechaMax = new DateTime(2015, 5, 30);
+            ListaIdAbogadosFacturasEnFecha = Servicio.ConsultaIdAbogados_FacturasFecha(FechaMin, FechaMax);
+            Console.WriteLine("Todos los IdAbogados de facturas en Fecha " + FechaMin + " - " + FechaMax);
             foreach (Factura A in ListaIdAbogadosFacturasEnFecha)
+            {
                 Console.WriteLine("IdAbogado: " + A.IdAbogado);
+            }
+
+            List<Factura> ListaIdAbogadosUsuarioasNuevos = new List<Factura>();
+            ListaIdAbogadosUsuarioasNuevos = Servicio.ConsultaIdAbogados_FacturasFecha(ListaIdAbogadosFacturasEnFecha, FechaMax);
+            Console.WriteLine("Todos los IdAbogados como usuarios nuevos en Fecha " + FechaMin + " - " + FechaMax);
+            foreach (Factura A in ListaIdAbogadosUsuarioasNuevos)
+            {
+                Console.WriteLine("IdAbogado Nuevos: " + A.IdAbogado);
+            }
         }
     }
 }
