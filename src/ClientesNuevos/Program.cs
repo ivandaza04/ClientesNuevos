@@ -20,10 +20,15 @@ namespace ClientesNuevos
             List<Factura> ListaFacturas = new List<Factura>();
             ListaFacturas = FacturaServicio.ConsultaFacturas();
 
+            // Ingrese Fechas
+            var FechaMin = new DateTime();
+            var FechaMax = new DateTime();
+            Console.WriteLine("Ingrese Fecha Minima(AÑO.MES.DIA):");
+            FechaMin = Convert.ToDateTime(Console.ReadLine());
+            Console.WriteLine("Ingrese Fecha Maxima(AÑO.MES.DIA):");
+            FechaMax = Convert.ToDateTime(Console.ReadLine());
+
             List<Factura> ListaIdAbogadosFacturasEnFecha = new List<Factura>();
-            // Facturas en el 5 del 2015
-            var FechaMin = new DateTime(2015, 4, 1);
-            var FechaMax = new DateTime(2015, 5, 30);
             ListaIdAbogadosFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
             // Imprime
             Console.WriteLine("Todos los IdAbogados de facturas en Fecha " + FechaMin + " - " + FechaMax);
