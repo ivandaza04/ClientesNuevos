@@ -11,9 +11,13 @@ namespace ClientesNuevos.Domain.Services
     {
         public List<Factura> ConsultaFacturas();
 
-        public List<Factura> ConsultaFacturasFecha(DateTime fechaInicio, DateTime fechaFinal);
+        public List<Factura> ConsultaIdAbogados_FacturasFecha(DateTime FechaMin, DateTime FechaMax);
 
-        public bool FacturaRangoFecha(DateTime FechaCreacion, DateTime fechaInicio, DateTime fechaFinal);
+        public bool FacturaRangoFecha(DateTime FechaCreacion, DateTime FechaMin, DateTime FechaMax);
+
+        public List<Factura> ConsultaIdAbogados_FacturasFecha(List<Factura> ListaIdAbogados, DateTime FechaMax);
+
+        public int ContarIdAbogado(String IdAbogado, DateTime FechaMax);
 
     }
 }
