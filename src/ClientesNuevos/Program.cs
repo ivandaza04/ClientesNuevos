@@ -37,16 +37,7 @@ namespace ClientesNuevos
                 Console.WriteLine("Codigo Factura: " + iteracion.Codigo + "\nFecha Creación: " + iteracion.FechaCreacion + "  IdAbogado: " + iteracion.IdAbogado + "\n");
             }
 
-            // Extraer datos para agregar a ListaClienteNuevos
-            UsuarioNuevoService UsuarioNuevoServicio = new UsuarioNuevoService(UsuarioNuevoImpl.GetClientesNuevos());
-            List<UsuarioNuevo> ListaClienteNuevos = new List<UsuarioNuevo>();
-            ListaClienteNuevos = UsuarioNuevoServicio.ConsultaClientesNuevos();
-            // Imprime
-            Console.WriteLine("Todos los Clientes Nuevos ya registrados en SGP");
-            foreach (UsuarioNuevo iteracion in ListaClienteNuevos)
-            {
-                Console.WriteLine("IdAbogado " + iteracion.IdAbogado);
-            }
+
 
             // Extraer datos para agregar a ListaUsuariosNuevos
             List<UsuarioNuevo> ListaUsuariosNuevos = new List<UsuarioNuevo>();
@@ -59,6 +50,30 @@ namespace ClientesNuevos
                 UsuarioNuevoImpl.CreateUsuarioNuevo(iteracion);
             }
 
+            // Extraer datos para agregar a ListaClienteNuevos
+            UsuarioNuevoService UsuarioNuevoServicio = new UsuarioNuevoService(UsuarioNuevoImpl.GetClientesNuevos());
+            List<UsuarioNuevo> ListaClienteNuevos = new List<UsuarioNuevo>();
+            ListaClienteNuevos = UsuarioNuevoServicio.ConsultaClientesNuevos();
+            // Imprime
+            Console.WriteLine("Todos los Clientes Nuevos ya registrados en SGP");
+            foreach (UsuarioNuevo iteracion in ListaClienteNuevos)
+            {
+                Console.WriteLine("IdAbogado " + iteracion.IdAbogado);
+            }
+
+            // Guardar informacion en un archivo csv
+            var ArchivoCSV = new ArchivoCSV();
+            Console.WriteLine("Ingrese Dirección Archivo:");
+            var Direccion = Convert.ToString(Console.ReadLine());
+            Console.WriteLine("Ingrese Nombre Archivo:");
+            var Nombre = Convert.ToString(Console.ReadLine());
+            string Archivo = Direccion + "/" + Nombre + ".csv";
+            var InformacionFila = "";
+            foreach (UsuarioNuevo iteracion in ListaClienteNuevos)
+            {
+                InformacionFila = iteracion.IdAbogado + "," + iteracion.CodigoFactura + "," + iteracion.SubTotalFactura + "," + iteracion.FechaCreacionFactura;
+                ArchivoCSV.WriteCVS(Archivo, InformacionFila);
+            }
         }
     }
 }

@@ -39,9 +39,9 @@ namespace ClientesNuevos.Domain.Services
             var FacturaAnteriorFechaMin = DateTime.Compare(FechaCreacion, FechaMin);
             var FacturaAnteriorFechaMax = DateTime.Compare(FechaCreacion, FechaMax);
 
-            // Si la fecha Factura en mayor a Fecha1
+            // Si la fecha Factura es mayor a FechaMin
             if (FacturaAnteriorFechaMin >= 0)
-                // Si la fecha Factura en menor a Fecha2
+                // Si la fecha Factura es menor a FechaMax
                 if (FacturaAnteriorFechaMax <= 0)
                     return true;
                 else
