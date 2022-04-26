@@ -10,7 +10,7 @@ namespace ClientesNuevos
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Imprimir Facturas!");
+            Console.WriteLine("Facturas!");
             // Declarar Implement para consultar en MongoDB
             FacturaImplement FacturaImplement = new FacturaImplement();
             UsuarioNuevoImplement UsuarioNuevoImpl = new UsuarioNuevoImplement();
@@ -18,6 +18,7 @@ namespace ClientesNuevos
             ProcesoImplement ProcesoImpl = new ProcesoImplement();
             ProcesoTybaImplement ProcesoTybaImpl = new ProcesoTybaImplement();
 
+            Console.WriteLine("Espere...!");
             // Crear objetos para agregar a ListaFacturas
             FacturaService FacturaServicio = new FacturaService(FacturaImplement.GetFacturas());
             List<Factura> ListaFacturas = new List<Factura>();
@@ -70,9 +71,9 @@ namespace ClientesNuevos
             var Nombre = Convert.ToString(Console.ReadLine());
             string Archivo = Direccion + "/" + Nombre + ".csv";
 
+            Console.WriteLine("Espere...!");
             // Crear objetos para agregar a ListaFacturas
             AbogadoService AbogadoServicio = new AbogadoService(AbogadoImpl.GetAbogados());
-
             foreach (UsuarioNuevo iteracion in ListaClienteNuevos)
             {
                 var infoAbogado = AbogadoServicio.ConsultaInfoAbogados(iteracion.IdAbogado);

@@ -10,5 +10,7 @@ namespace ClientesNuevos.Domain.Services
     interface IUsuarioNuevoService
     {
         public List<UsuarioNuevo> ConsultaClientesNuevos();
+
+        public Boolean UsuariosNuevosAResgistrar(List<UsuarioNuevo> clientesNuevos, UsuarioNuevo usuarioNuevos);
     }
 }

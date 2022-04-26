@@ -25,6 +25,48 @@ namespace ClientesNuevos.Domain.Test
             Assert.AreEqual(UsuarioNuevo.Count, result.Count);
         }
 
+        [Test]
+        public void UsuariosNuevosAResgistrar_ReturnFalse()
+        {
+            // Crear objetos para agregar a UsuarioNuevo
+            var clientesNuevos = GetTestListaClientesNuevos();
+            var Servicio = new UsuarioNuevoService(clientesNuevos);
+            // Usuario A Registrar
+            var testUsuarioNuevo = new UsuarioNuevo
+            {
+                _id = "2",
+                IdAbogado = "2",
+                CodigoFactura = "Demo2",
+                SubTotalFactura = "test",
+                FechaCreacionFactura = new DateTime(2022, 4, 20),
+            };
+
+            // Evaluar si el usuario a registrar esta en clientesNuevos
+            var result = Servicio.UsuariosNuevosAResgistrar(clientesNuevos, testUsuarioNuevo);
+
+            Assert.IsNotNull(testUsuarioNuevo);
+            Assert.IsNotNull(clientesNuevos.Count);
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void UsuariosNuevosAResgistrar_ReturnTrue()
+        {
+            // Crear objetos para agregar a UsuarioNuevo
+            var clientesNuevos = GetTestListaClientesNuevos();
+            var Servicio = new UsuarioNuevoService(clientesNuevos);
+            var testUsuarioNuevo = new UsuarioNuevo();
+            // Usuario A No Registrar
+            var UsuarioNoNuevo = GetClientesNuevo1();
+
+            // Evaluar si el usuario a registrar esta en clientesNuevos
+            var result = Servicio.UsuariosNuevosAResgistrar(clientesNuevos, UsuarioNoNuevo);
+
+            Assert.IsNotNull(testUsuarioNuevo);
+            Assert.IsNotNull(clientesNuevos.Count);
+            Assert.IsTrue(result);
+        }
+
         private List<UsuarioNuevo> GetTestListaClientesNuevos()
         {
             var testClientesNuevos = new List<UsuarioNuevo>();
