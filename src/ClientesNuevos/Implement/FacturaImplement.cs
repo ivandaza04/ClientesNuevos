@@ -30,7 +30,7 @@ namespace ClientesNuevos.Implement
         {
             var Query = _Facturas.Find(Factura => true).ToList();
             foreach (Factura result in Query)
-                Facturas.Add(new Factura(result._id, result.Codigo, result.IdAbogado, result.Estado, result.Pagado, result.FechaUltimaComunicacion, result.FechaCreacion, result.InicioFactura, result.FinFactura, result.PathPdf, result.SubTotal, result.RetencionEnFuente, result.Iva, result.Total, result.Token, result.TransactionId, result.TransactionCode, result.TransactionMessage, result.ReferenciaIndividual, result.ReferenciaAgrupada, result.SegundaReferenciaAgrupada, result.FechaTransaccion, result.EsCasoEspecial, result.DescuentoVolumen, result.DescuentoAntiguedad, result.IdProcesoCobro));
+                Facturas.Add(new Factura(result._id, result.Codigo, result.IdAbogado, result.FechaCreacion, result.SubTotal));
             return Facturas;
         }
 

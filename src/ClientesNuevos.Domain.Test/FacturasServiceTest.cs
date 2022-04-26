@@ -134,24 +134,8 @@ namespace ClientesNuevos.Domain.Test
                 _id = "1",
                 Codigo = "Demo1",
                 IdAbogado = "1",
-                Estado = "test",
-                Pagado = false,
-                FechaUltimaComunicacion = DateTime.Now,
                 FechaCreacion = new DateTime(2022, 4, 20),
-                InicioFactura = DateTime.Now,
-                FinFactura = DateTime.Now,
-                PathPdf = "test",
-                SubTotal = "test",
-                RetencionEnFuente = "",
-                Iva = "",
-                Total = "test",
-                Token = "test",
-                TransactionId = "test",
-                TransactionCode = "test",
-                TransactionMessage = "test",
-                FechaTransaccion = DateTime.Now,
-                DescuentoVolumen = false,
-                DescuentoAntiguedad = false,
+                SubTotal = "test"
             };
 
             return testFactura;
@@ -164,24 +148,8 @@ namespace ClientesNuevos.Domain.Test
                 _id = "2",
                 Codigo = "Demo1",
                 IdAbogado = "2",
-                Estado = "test",
-                Pagado = false,
-                FechaUltimaComunicacion = DateTime.Now,
                 FechaCreacion = new DateTime(2022, 3, 20),
-                InicioFactura = DateTime.Now,
-                FinFactura = DateTime.Now,
-                PathPdf = "test",
-                SubTotal = "test",
-                RetencionEnFuente = "",
-                Iva = "",
-                Total = "test",
-                Token = "test",
-                TransactionId = "test",
-                TransactionCode = "test",
-                TransactionMessage = "test",
-                FechaTransaccion = DateTime.Now,
-                DescuentoVolumen = false,
-                DescuentoAntiguedad = false,
+                SubTotal = "test"
             };
 
             return testFactura;
@@ -194,24 +162,8 @@ namespace ClientesNuevos.Domain.Test
                 _id = "3",
                 Codigo = "Demo3",
                 IdAbogado = "1",
-                Estado = "test",
-                Pagado = false,
-                FechaUltimaComunicacion = DateTime.Now,
                 FechaCreacion = new DateTime(2022, 4, 20),
-                InicioFactura = DateTime.Now,
-                FinFactura = DateTime.Now,
-                PathPdf = "test",
-                SubTotal = "test",
-                RetencionEnFuente = "",
-                Iva = "",
-                Total = "test",
-                Token = "test",
-                TransactionId = "test",
-                TransactionCode = "test",
-                TransactionMessage = "test",
-                FechaTransaccion = DateTime.Now,
-                DescuentoVolumen = false,
-                DescuentoAntiguedad = false,
+                SubTotal = "test"
             };
 
             return testFactura;
@@ -224,24 +176,8 @@ namespace ClientesNuevos.Domain.Test
                 _id = "4",
                 Codigo = "Demo4",
                 IdAbogado = "3",
-                Estado = "test",
-                Pagado = false,
-                FechaUltimaComunicacion = DateTime.Now,
                 FechaCreacion = new DateTime(2022, 4, 20),
-                InicioFactura = DateTime.Now,
-                FinFactura = DateTime.Now,
-                PathPdf = "test",
-                SubTotal = "test",
-                RetencionEnFuente = "",
-                Iva = "",
-                Total = "test",
-                Token = "test",
-                TransactionId = "test",
-                TransactionCode = "test",
-                TransactionMessage = "test",
-                FechaTransaccion = DateTime.Now,
-                DescuentoVolumen = false,
-                DescuentoAntiguedad = false,
+                SubTotal = "test"
             };
 
             return testFactura;

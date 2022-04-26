@@ -60,38 +60,17 @@ namespace ClientesNuevos.Domain.Models
 
         public string IdProcesoCobro { get; set; }
 
-        public Factura(string id, string codigo, string idAbogado, string estado, bool pagado, DateTime fechaUltimaComunicacion, DateTime fechaCreacion, DateTime inicioFactura, DateTime finFactura, string pathPdf, string subTotal, string retencionEnFuente, string iva, string total, string token, string transactionId, string transactionCode, string transactionMessage, string referenciaIndividual, string referenciaAgrupada, string segundaReferenciaAgrupada, DateTime fechaTransaccion, bool esCasoEspecial, bool descuentoVolumen, bool descuentoAntiguedad, string idProcesoCobro)
+        public Factura()
+        {
+        }
+
+        public Factura(string id, string codigo, string idAbogado, DateTime fechaCreacion, string subTotal)
         {
             _id = id;
             Codigo = codigo;
             IdAbogado = idAbogado;
-            Estado = estado;
-            Pagado = pagado;
-            FechaUltimaComunicacion = fechaUltimaComunicacion;
             FechaCreacion = fechaCreacion;
-            InicioFactura = inicioFactura;
-            FinFactura = finFactura;
-            PathPdf = pathPdf;
             SubTotal = subTotal;
-            RetencionEnFuente = retencionEnFuente;
-            Iva = iva;
-            Total = total;
-            Token = token;
-            TransactionId = transactionId;
-            TransactionCode = transactionCode;
-            TransactionMessage = transactionMessage;
-            ReferenciaIndividual = referenciaIndividual;
-            ReferenciaAgrupada = referenciaAgrupada;
-            SegundaReferenciaAgrupada = segundaReferenciaAgrupada;
-            FechaTransaccion = fechaTransaccion;
-            EsCasoEspecial = esCasoEspecial;
-            DescuentoVolumen = descuentoVolumen;
-            DescuentoAntiguedad = descuentoAntiguedad;
-            IdProcesoCobro = idProcesoCobro;
-        }
-
-        public Factura()
-        {
         }
     }
 }
