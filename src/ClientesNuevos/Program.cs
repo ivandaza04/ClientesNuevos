@@ -15,39 +15,41 @@ namespace ClientesNuevos
             FacturaImplement FacturaImplement = new FacturaImplement();
             UsuarioNuevoImplement UsuarioNuevoImpl = new UsuarioNuevoImplement();
             AbogadoImplement AbogadoImpl = new AbogadoImplement();
+            ProcesoImplement ProcesoImpl = new ProcesoImplement();
+            ProcesoTybaImplement ProcesoTybaImpl = new ProcesoTybaImplement();
 
             // Crear objetos para agregar a ListaFacturas
             FacturaService FacturaServicio = new FacturaService(FacturaImplement.GetFacturas());
             List<Factura> ListaFacturas = new List<Factura>();
             ListaFacturas = FacturaServicio.ConsultaFacturas();
 
-            //// Ingrese Fechas
-            //var FechaMin = new DateTime();
-            //var FechaMax = new DateTime();
-            //Console.WriteLine("Ingrese Fecha Minima(AÑO.MES.DIA):");
-            //FechaMin = Convert.ToDateTime(Console.ReadLine());
-            //Console.WriteLine("Ingrese Fecha Maxima(AÑO.MES.DIA):");
-            //FechaMax = Convert.ToDateTime(Console.ReadLine());
+            // Ingrese Fechas
+            var FechaMin = new DateTime();
+            var FechaMax = new DateTime();
+            Console.WriteLine("Ingrese Fecha Minima(AÑO.MES.DIA):");
+            FechaMin = Convert.ToDateTime(Console.ReadLine());
+            Console.WriteLine("Ingrese Fecha Maxima(AÑO.MES.DIA):");
+            FechaMax = Convert.ToDateTime(Console.ReadLine());
 
-            //List<Factura> ListaIdAbogadosFacturasEnFecha = new List<Factura>();
-            //ListaIdAbogadosFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
-            //// Imprime
-            //Console.WriteLine("Todos los IdAbogados de facturas en Fecha " + FechaMin + " - " + FechaMax);
-            //foreach (Factura iteracion in ListaIdAbogadosFacturasEnFecha)
-            //{
-            //    Console.WriteLine("Codigo Factura: " + iteracion.Codigo + "\nFecha Creación: " + iteracion.FechaCreacion + "  IdAbogado: " + iteracion.IdAbogado + "\n");
-            //}
+            List<Factura> ListaIdAbogadosFacturasEnFecha = new List<Factura>();
+            ListaIdAbogadosFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
+            // Imprime
+            Console.WriteLine("Todos los IdAbogados de facturas en Fecha " + FechaMin + " - " + FechaMax);
+            foreach (Factura iteracion in ListaIdAbogadosFacturasEnFecha)
+            {
+                Console.WriteLine("Codigo Factura: " + iteracion.Codigo + "\nFecha Creación: " + iteracion.FechaCreacion + "  IdAbogado: " + iteracion.IdAbogado + "\n");
+            }
 
-            //// Extraer datos para agregar a ListaUsuariosNuevos
-            //List<UsuarioNuevo> ListaUsuariosNuevos = new List<UsuarioNuevo>();
-            //ListaUsuariosNuevos = FacturaServicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaIdAbogadosFacturasEnFecha, FechaMax);
-            //// Imprime
-            //Console.WriteLine("Todos los IdAbogados como usuarios nuevos a registrar en Fecha " + FechaMin + " - " + FechaMax);
-            //foreach (UsuarioNuevo iteracion in ListaUsuariosNuevos)
-            //{
-            //    Console.WriteLine("IdAbogado Nuevos: " + iteracion.IdAbogado);
-            //    UsuarioNuevoImpl.CreateUsuarioNuevo(iteracion);
-            //}
+            // Extraer datos para agregar a ListaUsuariosNuevos
+            List<UsuarioNuevo> ListaUsuariosNuevos = new List<UsuarioNuevo>();
+            ListaUsuariosNuevos = FacturaServicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaIdAbogadosFacturasEnFecha, FechaMax);
+            // Imprime
+            Console.WriteLine("Todos los IdAbogados como usuarios nuevos a registrar en Fecha " + FechaMin + " - " + FechaMax);
+            foreach (UsuarioNuevo iteracion in ListaUsuariosNuevos)
+            {
+                Console.WriteLine("IdAbogado Nuevos: " + iteracion.IdAbogado);
+                UsuarioNuevoImpl.CreateUsuarioNuevo(iteracion);
+            }
 
             // Extraer datos para agregar a ListaClienteNuevos
             UsuarioNuevoService UsuarioNuevoServicio = new UsuarioNuevoService(UsuarioNuevoImpl.GetClientesNuevos());
@@ -67,7 +69,6 @@ namespace ClientesNuevos
             Console.WriteLine("Ingrese Nombre Archivo:");
             var Nombre = Convert.ToString(Console.ReadLine());
             string Archivo = Direccion + "/" + Nombre + ".csv";
-            var InformacionFila = "";
 
             // Crear objetos para agregar a ListaFacturas
             AbogadoService AbogadoServicio = new AbogadoService(AbogadoImpl.GetAbogados());
@@ -75,16 +76,21 @@ namespace ClientesNuevos
             foreach (UsuarioNuevo iteracion in ListaClienteNuevos)
             {
                 var infoAbogado = AbogadoServicio.ConsultaInfoAbogados(iteracion.IdAbogado);
+                var InformacionFila = "";
                 if (infoAbogado != null)
                 {
                     InformacionFila = iteracion.IdAbogado + "," + iteracion.CodigoFactura + "," + iteracion.SubTotalFactura + "," + iteracion.FechaCreacionFactura + "," + infoAbogado.Email + "," + infoAbogado.Activo + "," + infoAbogado.Nombre + "," + infoAbogado.Ciudad;
                 } else
                 {
-                    InformacionFila = iteracion.IdAbogado + "," + iteracion.CodigoFactura + "," + iteracion.SubTotalFactura + "," + iteracion.FechaCreacionFactura;
+                    InformacionFila = iteracion.IdAbogado + "," + iteracion.CodigoFactura + "," + iteracion.SubTotalFactura + "," + iteracion.FechaCreacionFactura + ",null,null,null,null";
                 }
-                
+                var Procesos = ProcesoImpl.CuentaProcesos(iteracion.IdAbogado);
+                var ProcesoTyba = ProcesoTybaImpl.CuentaProcesoTyba(iteracion.IdAbogado);
+                InformacionFila = InformacionFila + "," + Procesos + "," + ProcesoTyba;
+
                 ArchivoCSV.WriteCVS(Archivo, InformacionFila);
             }
+
         }
     }
 }
