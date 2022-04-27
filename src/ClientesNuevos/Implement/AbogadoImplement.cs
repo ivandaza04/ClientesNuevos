@@ -12,7 +12,7 @@ namespace ClientesNuevos.Implement
     {
 
         private readonly IMongoCollection<Abogado> _Abogados;
-        private List<Abogado> Abogados;
+        private List<Abogado> ListaAbogados;
         private Abogado Abogado;
 
         public AbogadoImplement()
@@ -22,7 +22,7 @@ namespace ClientesNuevos.Implement
 
             _Abogados = database.GetCollection<Abogado>("Abogados");
 
-            Abogados = new List<Abogado>();
+            ListaAbogados = new List<Abogado>();
 
             Abogado = new Abogado();
         }
@@ -31,8 +31,8 @@ namespace ClientesNuevos.Implement
         {
             var Query = _Abogados.Find(Abogado => true).ToList();
             foreach (Abogado result in Query)
-                Abogados.Add(new Abogado(result._id, result.Activo, result.Nombre, result.Email, result.Ciudad));
-            return Abogados;
+                ListaAbogados.Add(new Abogado(result._id, result.Activo, result.Nombre, result.Email, result.Ciudad));
+            return ListaAbogados;
         }
     }
 }

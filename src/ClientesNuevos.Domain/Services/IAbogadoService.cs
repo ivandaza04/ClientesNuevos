@@ -11,6 +11,6 @@ namespace ClientesNuevos.Domain.Services
     {
         public List<Abogado> ConsultaAbogados();
 
-        public Abogado ConsultaInfoAbogados(String IdAbogado);
+        public Abogado ConsultaAbogado(String IdAbogado);
     }
 }

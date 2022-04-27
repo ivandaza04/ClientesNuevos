@@ -11,7 +11,7 @@ namespace ClientesNuevos.Implement
     public  class FacturaImplement
     {
         private readonly IMongoCollection<Factura> _Facturas;
-        private List<Factura> Facturas;
+        private List<Factura> ListaFacturas;
         private Factura Factura;
 
         public FacturaImplement()
@@ -21,7 +21,7 @@ namespace ClientesNuevos.Implement
 
             _Facturas = database.GetCollection<Factura>("Facturas");
 
-            Facturas = new List<Factura>();
+            ListaFacturas = new List<Factura>();
 
             Factura = new Factura();
         }
@@ -30,8 +30,8 @@ namespace ClientesNuevos.Implement
         {
             var Query = _Facturas.Find(Factura => true).ToList();
             foreach (Factura result in Query)
-                Facturas.Add(new Factura(result._id, result.Codigo, result.IdAbogado, result.FechaCreacion, result.SubTotal));
-            return Facturas;
+                ListaFacturas.Add(new Factura(result._id, result.Codigo, result.IdAbogado, result.FechaCreacion, result.SubTotal));
+            return ListaFacturas;
         }
 
     }

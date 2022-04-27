@@ -9,34 +9,38 @@ namespace ClientesNuevos.Domain.Services
 {
     public class FacturaService : IFacturaService
     {
-        List<Factura> Facturas = new List<Factura>();
-        List<Factura> IdAbogados = new List<Factura>();
-        List<UsuarioNuevo> UsuariosNuevos = new List<UsuarioNuevo>();
+        List<Factura> ListaFacturas = new List<Factura>();
+        List<Factura> ListaFacturasFecha = new List<Factura>();
+        List<UsuarioNuevo> ListaUsuariosNuevos = new List<UsuarioNuevo>();
 
-        public FacturaService(List<Factura> facturas)
+        public FacturaService(List<Factura> listaFacturas)
         {
-            Facturas = facturas;
+            ListaFacturas = listaFacturas;
         }
 
         public List<Factura> ConsultaFacturas()
         {
-            return Facturas;
+            return ListaFacturas;
         }
 
+        // Valora todas las facturas de ListaFacturas si esta en las fechas establecidas y las agrega a ListaFacturasFecha
         public List<Factura> ConsultaFacturasFecha(DateTime fechaMin, DateTime fechaMax)
         {
-            foreach (Factura factura in Facturas)
+            foreach (Factura factura in ListaFacturas)
                 if (FacturaRangoFecha(factura.FechaCreacion, fechaMin, fechaMax) == true)
                 {
-                    IdAbogados.Add(factura);
+                    ListaFacturasFecha.Add(factura);
                 }
 
-            return IdAbogados;
+            return ListaFacturasFecha;
         }
 
+        // Valora si la FechaCreacion de la factura esta en rango de fechas
         public bool FacturaRangoFecha(DateTime FechaCreacion, DateTime fechaMin, DateTime fechaMax)
         {
+            // Compara FechaCreacion con fechaMin, -1 es mayor, 0 es igual, 1 es mayor
             var FacturaAnteriorFechaMin = DateTime.Compare(FechaCreacion, fechaMin);
+            // Compara FechaCreacion con fechaMax, -1 es mayor, 0 es igual, 1 es mayor
             var FacturaAnteriorFechaMax = DateTime.Compare(FechaCreacion, fechaMax);
 
             // Si la fecha Factura es mayor a FechaMin
@@ -50,23 +54,25 @@ namespace ClientesNuevos.Domain.Services
                 return false;
         }
 
-        public List<UsuarioNuevo> ConsultaIdAbogadoEsUsuarioNuevo(List<Factura> ListaIdAbogados, DateTime fechaMax)
+        // Valora si el IdAbogado de ListaFacturasFecha tiene facturas anteriores a fechaMax y las agrega UsuarioNuevo a ListaUsuariosNuevos
+        public List<UsuarioNuevo> ConsultaIdAbogadoEsUsuarioNuevo(List<Factura> ListaFacturasFecha, DateTime fechaMax)
         {
             var IdAbogadoContado = 0;
-            foreach (Factura factura in ListaIdAbogados)
+            foreach (Factura factura in ListaFacturasFecha)
             {
                 IdAbogadoContado = ContarIdAbogado(factura.IdAbogado, fechaMax);
                 if (IdAbogadoContado == 1)
-                    UsuariosNuevos.Add(new UsuarioNuevo(factura._id, factura.IdAbogado, factura.Codigo, factura.SubTotal, factura.FechaCreacion));
+                    ListaUsuariosNuevos.Add(new UsuarioNuevo(factura._id, factura.IdAbogado, factura.Codigo, factura.SubTotal, factura.FechaCreacion));
             }
 
-            return UsuariosNuevos;
+            return ListaUsuariosNuevos;
         }
 
+        // Valora cuantas veces IdAbogado esta presente en facturas de ListaFacturas 
         public int ContarIdAbogado(String IdAbogado, DateTime fechaMax)
         {
             var NIdAbogados = 0;
-            foreach (Factura factura in Facturas)
+            foreach (Factura factura in ListaFacturas)
                 if (factura.IdAbogado == IdAbogado)
                 {
                     if (DateTime.Compare(factura.FechaCreacion, fechaMax) <= 0)

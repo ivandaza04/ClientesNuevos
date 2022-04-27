@@ -15,22 +15,22 @@ namespace ClientesNuevos.Domain.Test
         public void GetUsuarioNuevo_ReturnFacturas()
         {
             // Crear objetos para agregar a UsuarioNuevo
-            List<UsuarioNuevo> UsuarioNuevo = GetTestListaClientesNuevos();
-            UsuarioNuevoService Servicio = new(UsuarioNuevo);
+            List<UsuarioNuevo> ListaUsuarioNuevo = GetTestListaClientesNuevos();
+            UsuarioNuevoService Servicio = new(ListaUsuarioNuevo);
 
             // Agrega Todos los registros
             List<UsuarioNuevo> result = Servicio.ConsultaClientesNuevos();
 
-            Assert.IsNotNull(UsuarioNuevo.Count);
-            Assert.AreEqual(UsuarioNuevo.Count, result.Count);
+            Assert.IsNotNull(ListaUsuarioNuevo.Count);
+            Assert.AreEqual(ListaUsuarioNuevo.Count, result.Count);
         }
 
         [Test]
         public void UsuariosNuevosARegistrar_ReturnFalse()
         {
             // Crear objetos para agregar a UsuarioNuevo
-            List<UsuarioNuevo> clientesNuevos = GetTestListaClientesNuevos();
-            UsuarioNuevoService Servicio = new(clientesNuevos);
+            List<UsuarioNuevo> ListaClientesNuevos = GetTestListaClientesNuevos();
+            UsuarioNuevoService Servicio = new(ListaClientesNuevos);
             // Usuario A Registrar
             UsuarioNuevo testUsuarioNuevo = new()
             {
@@ -45,7 +45,7 @@ namespace ClientesNuevos.Domain.Test
             bool result = Servicio.UsuariosNuevosARegistrar(testUsuarioNuevo);
 
             Assert.IsNotNull(testUsuarioNuevo);
-            Assert.IsNotNull(clientesNuevos.Count);
+            Assert.IsNotNull(ListaClientesNuevos.Count);
             Assert.IsFalse(result);
         }
 
@@ -53,8 +53,8 @@ namespace ClientesNuevos.Domain.Test
         public void UsuariosNuevosARegistrar_ReturnTrue()
         {
             // Crear objetos para agregar a UsuarioNuevo
-            List<UsuarioNuevo> clientesNuevos = GetTestListaClientesNuevos();
-            UsuarioNuevoService Servicio = new(clientesNuevos);
+            List<UsuarioNuevo> ListaClientesNuevos = GetTestListaClientesNuevos();
+            UsuarioNuevoService Servicio = new(ListaClientesNuevos);
             UsuarioNuevo testUsuarioNuevo = new();
             // Usuario A No Registrar
             UsuarioNuevo testUsuarioNoNuevo = GetClientesNuevo1();
@@ -63,7 +63,7 @@ namespace ClientesNuevos.Domain.Test
             bool result = Servicio.UsuariosNuevosARegistrar(testUsuarioNoNuevo);
 
             Assert.IsNotNull(testUsuarioNuevo);
-            Assert.IsNotNull(clientesNuevos.Count);
+            Assert.IsNotNull(ListaClientesNuevos.Count);
             Assert.IsTrue(result);
         }
 
@@ -71,8 +71,8 @@ namespace ClientesNuevos.Domain.Test
         public void UsuariosNuevosARegistrar_ReturnListaUsuarioNuevos()
         {
             // Crear objetos para agregar a UsuarioNuevo
-            List<UsuarioNuevo> clientesNuevos = GetTestListaClientesNuevos();
-            UsuarioNuevoService Servicio = new(clientesNuevos);
+            List<UsuarioNuevo> ListaClientesNuevos = GetTestListaClientesNuevos();
+            UsuarioNuevoService Servicio = new(ListaClientesNuevos);
 
             List<UsuarioNuevo> usuariosNuevos = GetTestListaUsuariosNuevos();
 
@@ -81,7 +81,7 @@ namespace ClientesNuevos.Domain.Test
             // Se espera un solo un usuario para registrar
             var resultEsperado = 1;
 
-            Assert.IsNotNull(clientesNuevos.Count);
+            Assert.IsNotNull(ListaClientesNuevos.Count);
             Assert.IsNotNull(usuariosNuevos.Count);
             Assert.AreEqual(resultEsperado, result.Count);
         }

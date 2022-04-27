@@ -11,7 +11,7 @@ namespace ClientesNuevos.Implement
     public class UsuarioNuevoImplement
     {
         private readonly IMongoCollection<UsuarioNuevo> _UsuarioNuevo;
-        private List<UsuarioNuevo> Usuarios;
+        private List<UsuarioNuevo> ListaClientesNuevos;
         private UsuarioNuevo Usuario;
 
         public UsuarioNuevoImplement()
@@ -21,7 +21,7 @@ namespace ClientesNuevos.Implement
 
             _UsuarioNuevo = database.GetCollection<UsuarioNuevo>("ClientesNuevos");
 
-            Usuarios = new List<UsuarioNuevo>();
+            ListaClientesNuevos = new List<UsuarioNuevo>();
 
             Usuario = new UsuarioNuevo();
         }
@@ -30,8 +30,8 @@ namespace ClientesNuevos.Implement
         {
             var Query = _UsuarioNuevo.Find(UsuarioNuevo => true).ToList();
             foreach (UsuarioNuevo result in Query)
-                Usuarios.Add(new UsuarioNuevo(result._id, result.IdAbogado, result.CodigoFactura, result.SubTotalFactura, result.FechaCreacionFactura));
-            return Usuarios;
+                ListaClientesNuevos.Add(new UsuarioNuevo(result._id, result.IdAbogado, result.CodigoFactura, result.SubTotalFactura, result.FechaCreacionFactura));
+            return ListaClientesNuevos;
         }
 
         public UsuarioNuevo CreateUsuarioNuevo(UsuarioNuevo usuario)

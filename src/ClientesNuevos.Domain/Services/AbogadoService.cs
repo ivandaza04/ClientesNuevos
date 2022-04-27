@@ -9,30 +9,31 @@ namespace ClientesNuevos.Domain.Services
 {
     public class AbogadoService : IAbogadoService
     {
-        List<Abogado> Abogados = new List<Abogado>();
-        Abogado InfoAbogados = new Abogado();
+        List<Abogado> ListaAbogados = new List<Abogado>();
+        Abogado Abogado = new Abogado();
 
-        public AbogadoService(List<Abogado> abogados)
+        public AbogadoService(List<Abogado> listaAbogados)
         {
-            Abogados = abogados;
+            ListaAbogados = listaAbogados;
         }
 
         public List<Abogado> ConsultaAbogados()
         {
-            return Abogados;
+            return ListaAbogados;
         }
 
-        public Abogado ConsultaInfoAbogados(String idAbogado)
+        // Consultar abogado en ListaAbogados y devolver objeto Abogado
+        public Abogado ConsultaAbogado(String idAbogado)
         {
             // Buscar informacion abogado por el IdAbogado
-            foreach (Abogado abogado in Abogados)
+            foreach (Abogado abogado in ListaAbogados)
             {
                 if (abogado._id == idAbogado)
-                    InfoAbogados = abogado;
+                    Abogado = abogado;
                 else
-                    InfoAbogados = null;
+                    Abogado = null;
             }
-            return InfoAbogados;
+            return Abogado;
         }
     }
 }

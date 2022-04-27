@@ -15,7 +15,7 @@ namespace ClientesNuevos.Domain.Services
 
         public bool FacturaRangoFecha(DateTime FechaCreacion, DateTime FechaMin, DateTime FechaMax);
 
-        public List<UsuarioNuevo> ConsultaIdAbogadoEsUsuarioNuevo(List<Factura> ListaIdAbogados, DateTime FechaMax);
+        public List<UsuarioNuevo> ConsultaIdAbogadoEsUsuarioNuevo(List<Factura> ListaAbogados, DateTime FechaMax);
 
         public int ContarIdAbogado(String IdAbogado, DateTime FechaMax);
 

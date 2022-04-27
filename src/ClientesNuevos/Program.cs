@@ -19,7 +19,7 @@ namespace ClientesNuevos
             ProcesoTybaImplement ProcesoTybaImpl = new();
 
             Console.WriteLine("Espere...!");
-            // Lista de Todas las Facturas
+            // Lista de Todas las Facturas en ListaFacturas
             FacturaService FacturaServicio = new(FacturaImplement.GetFacturas());
             List<Factura> ListaFacturas = new List<Factura>();
             ListaFacturas = FacturaServicio.ConsultaFacturas();
@@ -33,18 +33,18 @@ namespace ClientesNuevos
             Console.WriteLine("Ingrese Fecha Maxima(AÑO.MES.DIA):");
             FechaMax = Convert.ToDateTime(Console.ReadLine());
 
-            // Lista de Facturas en las Fechas Establecidas
-            List<Factura> ListaIdAbogadosFacturasEnFecha = new List<Factura>();
-            ListaIdAbogadosFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
+            // Lista de Facturas en las Fechas Establecidas en ListaFacturasEnFecha
+            List<Factura> ListaFacturasEnFecha = new List<Factura>();
+            ListaFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
             Console.WriteLine("Todos los IdAbogados de facturas en Fecha " + FechaMin + " - " + FechaMax);
-            foreach (Factura factura in ListaIdAbogadosFacturasEnFecha)
+            foreach (Factura factura in ListaFacturasEnFecha)
             {
                 Console.WriteLine("Codigo Factura: " + factura.Codigo + "\nFecha Creación: " + factura.FechaCreacion + "  IdAbogado: " + factura.IdAbogado + "\n");
             }
 
-            // Lista Usuarios Nuevos en las Fechas Establecidas
+            // Lista Usuarios Nuevos en las Fechas Establecidasm en ListaUsuariosNuevos
             List<UsuarioNuevo> ListaUsuariosNuevos = new List<UsuarioNuevo>();
-            ListaUsuariosNuevos = FacturaServicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaIdAbogadosFacturasEnFecha, FechaMax);
+            ListaUsuariosNuevos = FacturaServicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaFacturasEnFecha, FechaMax);
             // Imprime
             Console.WriteLine("Todos los IdAbogados como usuarios nuevos a registrar en Fecha " + FechaMin + " - " + FechaMax);
             foreach (UsuarioNuevo usuario in ListaUsuariosNuevos)
@@ -53,7 +53,7 @@ namespace ClientesNuevos
                 UsuarioNuevoImpl.CreateUsuarioNuevo(usuario);
             }
 
-            // Lista Consulta Todos Cliente Nuevos en SGP
+            // Lista Consulta Todos Cliente Nuevos en SGP en ListaClienteNuevos
             UsuarioNuevoService UsuarioNuevoServicio = new(UsuarioNuevoImpl.GetClientesNuevos());
             List<UsuarioNuevo> ListaClienteNuevos = new List<UsuarioNuevo>();
             ListaClienteNuevos = UsuarioNuevoServicio.ConsultaClientesNuevos();
@@ -64,7 +64,7 @@ namespace ClientesNuevos
                 Console.WriteLine("IdAbogado " + usuario.IdAbogado);
             }
 
-            // Lista Usuario Nuevos A Registrar que no esten en Clientes Nuevos en SGP
+            // Lista Usuario Nuevos A Registrar que no esten en Clientes Nuevos en SGP en ListaUsuarios_A_Registrar
             List<UsuarioNuevo> ListaUsuarios_A_Registrar = new List<UsuarioNuevo>();
             ListaUsuarios_A_Registrar = UsuarioNuevoServicio.UsuariosNuevosRegistrar(ListaUsuariosNuevos);
             Console.WriteLine("Todos los Clientes Nuevos no registrados en SGP");
@@ -73,7 +73,7 @@ namespace ClientesNuevos
                 Console.WriteLine("IdAbogado " + usuario.IdAbogado);
             }
 
-            // Guardar informacion en un archivo csv
+            // Guardar informacion en un archivo csv de la lista ListaUsuariosNuevos
             var ArchivoCSV = new ArchivoCSV();
             Console.WriteLine("Ingrese Dirección Archivo:");
             var Direccion = Convert.ToString(Console.ReadLine());
@@ -86,7 +86,7 @@ namespace ClientesNuevos
             AbogadoService AbogadoServicio = new(AbogadoImpl.GetAbogados());
             foreach (UsuarioNuevo usuario in ListaUsuariosNuevos)
             {
-                var infoAbogado = AbogadoServicio.ConsultaInfoAbogados(usuario.IdAbogado);
+                var infoAbogado = AbogadoServicio.ConsultaAbogado(usuario.IdAbogado);
                 var InformacionFila = "";
                 if (infoAbogado != null)
                 {

@@ -16,22 +16,22 @@ namespace ClientesNuevos.Domain.Test
         public void GetFacturas_ReturnFacturas()
         {
             // Crear objetos para agregar a ListaFacturas
-            List<Factura> Facturas = GetTestListaFacturas();
-            FacturaService Servicio = new(Facturas);
+            List<Factura> ListaFacturas = GetTestListaFacturas();
+            FacturaService Servicio = new(ListaFacturas);
 
             // Agrega Todas las facturas
             List<Factura> result = Servicio.ConsultaFacturas();
 
-            Assert.IsNotNull(Facturas.Count);
-            Assert.AreEqual(Facturas.Count, result.Count);
+            Assert.IsNotNull(ListaFacturas.Count);
+            Assert.AreEqual(ListaFacturas.Count, result.Count);
         }
 
         [Test]
         public void FacturaRangoFecha_ReturnTrue()
         {
             // Crear objetos para agregar a ListaFacturas
-            List<Factura> Facturas = GetTestListaFacturas();
-            FacturaService Servicio = new(Facturas);
+            List<Factura> ListaFacturas = GetTestListaFacturas();
+            FacturaService Servicio = new(ListaFacturas);
 
             // Rango de Fechas
             var FechaMin = new DateTime(2022, 3, 25);
@@ -43,7 +43,7 @@ namespace ClientesNuevos.Domain.Test
             // Evalua condicion de Fecha de Factura en el rango
             bool resultTrue = Servicio.FacturaRangoFecha(FechaCreacionRangoTrue, FechaMin, FechaMax);
 
-            Assert.IsNotNull(Facturas.Count);
+            Assert.IsNotNull(ListaFacturas.Count);
             // Resultado condicion de Fecha de Factura en el rango
             Assert.IsTrue(resultTrue);
         }
@@ -52,8 +52,8 @@ namespace ClientesNuevos.Domain.Test
         public void FacturaRangoFecha_ReturnFalse()
         {
             // Crear objetos para agregar a ListaFacturas
-            List<Factura> Facturas = GetTestListaFacturas();
-            FacturaService Servicio = new(Facturas);
+            List<Factura> ListaFacturas = GetTestListaFacturas();
+            FacturaService Servicio = new(ListaFacturas);
 
             // Rango de Fechas
             var FechaMin = new DateTime(2022, 3, 25);
@@ -65,7 +65,7 @@ namespace ClientesNuevos.Domain.Test
             // Evalua condicion de Fecha de Factura fuera del rango
             bool resultFalse = Servicio.FacturaRangoFecha(FechaCreacionRangoFalse, FechaMin, FechaMax);
 
-            Assert.IsNotNull(Facturas.Count);
+            Assert.IsNotNull(ListaFacturas.Count);
             // Resultado condicion de Fecha de Factura fuera del rango
             Assert.IsFalse(resultFalse);
         }
@@ -74,8 +74,8 @@ namespace ClientesNuevos.Domain.Test
         public void ConsultaFacturasFecha_ReturnIdAbogadosFacturasFecha()
         {
             // Crear objetos para agregar a ListaFacturas
-            List<Factura> Facturas = GetTestListaFacturas();
-            FacturaService Servicio = new(Facturas);
+            List<Factura> ListaFacturas = GetTestListaFacturas();
+            FacturaService Servicio = new(ListaFacturas);
 
             // Rango de Fechas
             var FechaMin = new DateTime(2022, 3, 25);
@@ -84,7 +84,7 @@ namespace ClientesNuevos.Domain.Test
             // Agrega Facturas que esta en las fechas establecidas 
             List<Factura> result = Servicio.ConsultaFacturasFecha(FechaMin, FechaMax);
 
-            Assert.IsNotNull(Facturas.Count);
+            Assert.IsNotNull(ListaFacturas.Count);
             Assert.IsNotNull(result.Count);
         }
 
@@ -92,8 +92,8 @@ namespace ClientesNuevos.Domain.Test
         public void ConsultaUsuarioNuevo_ReturnListaIdAbogadosNuevos()
         {
             // Crear objetos para agregar a ListaFacturas
-            var Facturas = GetTestListaFacturas();
-            FacturaService Servicio = new(Facturas);
+            List<Factura> ListaFacturas = GetTestListaFacturas();
+            FacturaService Servicio = new(ListaFacturas);
 
             // Rango de Fechas
             var FechaMin = new DateTime(2022, 3, 25);
@@ -107,7 +107,7 @@ namespace ClientesNuevos.Domain.Test
             // Facturas Agregadas en la fecha con un usuario Nuevo
             var resultEsperado = 1;
 
-            Assert.IsNotNull(Facturas.Count);
+            Assert.IsNotNull(ListaFacturas.Count);
             Assert.IsNotNull(ListaIdAbogados.Count);
             Assert.IsNotNull(result.Count);
             Assert.AreEqual(resultEsperado, result.Count);
@@ -117,8 +117,8 @@ namespace ClientesNuevos.Domain.Test
         public void ContarIdAbogado_ReturnNIdAbogados()
         {
             // Crear objetos para agregar a ListaFacturas
-            List<Factura> Facturas = GetTestListaFacturas();
-            FacturaService Servicio = new FacturaService(Facturas);
+            List<Factura> ListaFacturas = GetTestListaFacturas();
+            FacturaService Servicio = new FacturaService(ListaFacturas);
 
             var FechaMax = new DateTime(2022, 4, 25);
             var IdAbogado = "1";

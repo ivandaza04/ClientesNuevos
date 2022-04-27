@@ -15,26 +15,26 @@ namespace ClientesNuevos.Domain.Test
         public void GetAbogados_ReturnAbogados()
         {
             // Crear objetos para agregar a ListaAbogados
-            List<Abogado> Abogados = GetTestListaAbogados();
-            AbogadoService Servicio = new(Abogados);
+            List<Abogado> ListaAbogados = GetTestListaAbogados();
+            AbogadoService Servicio = new(ListaAbogados);
 
             // Agrega Todas las Abogados
             List<Abogado> result = Servicio.ConsultaAbogados();
 
-            Assert.IsNotNull(Abogados.Count);
-            Assert.AreEqual(Abogados.Count, result.Count);
+            Assert.IsNotNull(ListaAbogados.Count);
+            Assert.AreEqual(ListaAbogados.Count, result.Count);
         }
 
         [Test]
         public void ConsultaInfoAbogados_ReturnAbogado()
         {
             // Crear objetos para agregar a ListaAbogados
-            List<Abogado> Abogados = GetTestListaAbogados();
-            AbogadoService Servicio = new(Abogados);
+            List<Abogado> ListaAbogados = GetTestListaAbogados();
+            AbogadoService Servicio = new(ListaAbogados);
             string IdAbogado = "1042";
 
             // Agrega Todos los registros
-            Abogado result = Servicio.ConsultaInfoAbogados(IdAbogado);
+            Abogado result = Servicio.ConsultaAbogado(IdAbogado);
             // Nombre Abogado
             string resultEsperado = "William Sánchez";
 
