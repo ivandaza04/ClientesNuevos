@@ -24,14 +24,20 @@ namespace ClientesNuevos
             List<Factura> ListaFacturas = new List<Factura>();
             ListaFacturas = FacturaServicio.ConsultaFacturas();
 
-            Console.WriteLine("enter...!");
             // Ingrese Fechas
             var FechaMin = new DateTime();
             var FechaMax = new DateTime();
-            Console.WriteLine("Ingrese Fecha Minima(AÑO.MES.DIA):");
-            FechaMin = Convert.ToDateTime(Console.ReadLine());
-            Console.WriteLine("Ingrese Fecha Maxima(AÑO.MES.DIA):");
-            FechaMax = Convert.ToDateTime(Console.ReadLine());
+
+            try
+            {
+                Console.WriteLine("Ingrese Fecha Minima(AÑO.MES.DIA):");
+                FechaMin = Convert.ToDateTime(Console.ReadLine());
+                Console.WriteLine("Ingrese Fecha Maxima(AÑO.MES.DIA):");
+                FechaMax = Convert.ToDateTime(Console.ReadLine());
+            } catch (FormatException ex)
+            {
+                Console.WriteLine("Error Fecha Invalida");
+            }
 
             // Lista de Facturas en las Fechas Establecidas en ListaFacturasEnFecha
             List<Factura> ListaFacturasEnFecha = new List<Factura>();
@@ -101,7 +107,7 @@ namespace ClientesNuevos
 
                 ArchivoCSV.WriteCVS(Archivo, InformacionFila);
             }
-
+            Console.WriteLine("proceso finalizado!");
         }
     }
 }
