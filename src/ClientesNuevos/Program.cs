@@ -90,7 +90,7 @@ namespace ClientesNuevos
             Console.WriteLine("Espere...!");
             // Crear objetos para agregar a ListaUsuariosNuevos encontrados
             AbogadoService AbogadoServicio = new(AbogadoImpl.GetAbogados());
-            foreach (UsuarioNuevo usuario in ListaUsuariosNuevos)
+            foreach (UsuarioNuevo usuario in ListaClienteNuevos)
             {
                 var infoAbogado = AbogadoServicio.ConsultaAbogado(usuario.IdAbogado);
                 var InformacionFila = "";

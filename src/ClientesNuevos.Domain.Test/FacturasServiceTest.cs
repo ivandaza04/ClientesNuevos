@@ -22,8 +22,10 @@ namespace ClientesNuevos.Domain.Test
             // Agrega Todas las facturas
             List<Factura> result = Servicio.ConsultaFacturas();
 
+            var numerodefacturas = 4;
+
             Assert.IsNotNull(ListaFacturas.Count);
-            Assert.AreEqual(ListaFacturas.Count, result.Count);
+            Assert.AreEqual(numerodefacturas, result.Count);
         }
 
         [Test]
@@ -71,7 +73,7 @@ namespace ClientesNuevos.Domain.Test
         }
 
         [Test]
-        public void ConsultaFacturasFecha_ReturnIdAbogadosFacturasFecha()
+        public void ConsultaFacturasFecha_ReturnFacturasFecha()
         {
             // Crear objetos para agregar a ListaFacturas
             List<Factura> ListaFacturas = GetTestListaFacturas();
@@ -83,13 +85,16 @@ namespace ClientesNuevos.Domain.Test
 
             // Agrega Facturas que esta en las fechas establecidas 
             List<Factura> result = Servicio.ConsultaFacturasFecha(FechaMin, FechaMax);
+            // resultEsperado es 3 facturas dentro del rango
+            var resultEsperado = 3;
 
             Assert.IsNotNull(ListaFacturas.Count);
             Assert.IsNotNull(result.Count);
+            Assert.AreEqual(resultEsperado, result.Count);
         }
 
         [Test]
-        public void ConsultaUsuarioNuevo_ReturnListaIdAbogadosNuevos()
+        public void ConsultaUsuarioNuevo_Return2Facturas()
         {
             // Crear objetos para agregar a ListaFacturas
             List<Factura> ListaFacturas = GetTestListaFacturas();
@@ -104,8 +109,9 @@ namespace ClientesNuevos.Domain.Test
 
             // Agrega Facturas con Usuarios Nuevos
             List<UsuarioNuevo> result = Servicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaIdAbogados,FechaMax);
-            // Facturas Agregadas en la fecha con un usuario Nuevo
-            var resultEsperado = 1;
+            // Facturas Agregadas son 2 ya que 2 facturas en la fecha tiene usuario nuevo
+            // Ya que factura con abogado IdAbogado = "3" no es nuevo
+            var resultEsperado = 2;
 
             Assert.IsNotNull(ListaFacturas.Count);
             Assert.IsNotNull(ListaIdAbogados.Count);
@@ -114,7 +120,7 @@ namespace ClientesNuevos.Domain.Test
         }
 
         [Test]
-        public void ContarIdAbogado_ReturnNIdAbogados()
+        public void ContarIdAbogado_ReturnIgualA1()
         {
             // Crear objetos para agregar a ListaFacturas
             List<Factura> ListaFacturas = GetTestListaFacturas();
@@ -125,12 +131,30 @@ namespace ClientesNuevos.Domain.Test
 
             //  Evalua IdAbogado tiene Facturas anteriores
             int result = Servicio.ContarIdAbogado(IdAbogado, FechaMax);
-            // Numero de Facturas con el mismo IdAbogado
+            // Numero de Facturas con el mismo IdAbogado = 1
+            var resultEsperado = 1;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(resultEsperado, result);
+        }
+
+        [Test]
+        public void ContarIdAbogado_ReturnMayorA1()
+        {
+            // Crear objetos para agregar a ListaFacturas
+            List<Factura> ListaFacturas = GetTestListaFacturas();
+            FacturaService Servicio = new FacturaService(ListaFacturas);
+
+            var FechaMax = new DateTime(2022, 4, 25);
+            var IdAbogado = "3";
+
+            //  Evalua IdAbogado tiene Facturas anteriores
+            int result = Servicio.ContarIdAbogado(IdAbogado, FechaMax);
+            // Numero de Facturas con el mismo IdAbogado = 1
             var resultEsperado = 2;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(resultEsperado, result);
-
         }
 
         private List<Factura> GetTestListaFacturas()
@@ -152,7 +176,7 @@ namespace ClientesNuevos.Domain.Test
                 _id = "1",
                 Codigo = "Demo1",
                 IdAbogado = "1",
-                FechaCreacion = new DateTime(2022, 4, 20),
+                FechaCreacion = new DateTime(2022, 4, 5),
                 SubTotal = "test"
             };
 
@@ -166,7 +190,7 @@ namespace ClientesNuevos.Domain.Test
                 _id = "2",
                 Codigo = "Demo1",
                 IdAbogado = "2",
-                FechaCreacion = new DateTime(2022, 3, 20),
+                FechaCreacion = new DateTime(2022, 4, 10),
                 SubTotal = "test"
             };
 
@@ -179,7 +203,7 @@ namespace ClientesNuevos.Domain.Test
             {
                 _id = "3",
                 Codigo = "Demo3",
-                IdAbogado = "1",
+                IdAbogado = "3",
                 FechaCreacion = new DateTime(2022, 4, 20),
                 SubTotal = "test"
             };
@@ -194,11 +218,12 @@ namespace ClientesNuevos.Domain.Test
                 _id = "4",
                 Codigo = "Demo4",
                 IdAbogado = "3",
-                FechaCreacion = new DateTime(2022, 4, 20),
+                FechaCreacion = new DateTime(2022, 3, 16),
                 SubTotal = "test"
             };
 
             return testFactura;
         }
+
     }
 }
