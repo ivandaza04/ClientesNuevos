@@ -15,11 +15,11 @@ namespace ClientesNuevos.Domain.Test
         public void GetAbogados_ReturnAbogados()
         {
             // Crear objetos para agregar a ListaAbogados
-            var Abogados = GetTestListaAbogados();
-            var Servicio = new AbogadoService(Abogados);
+            List<Abogado> Abogados = GetTestListaAbogados();
+            AbogadoService Servicio = new(Abogados);
 
             // Agrega Todas las Abogados
-            var result = Servicio.ConsultaAbogados();
+            List<Abogado> result = Servicio.ConsultaAbogados();
 
             Assert.IsNotNull(Abogados.Count);
             Assert.AreEqual(Abogados.Count, result.Count);
@@ -29,14 +29,14 @@ namespace ClientesNuevos.Domain.Test
         public void ConsultaInfoAbogados_ReturnAbogado()
         {
             // Crear objetos para agregar a ListaAbogados
-            var Abogados = GetTestListaAbogados();
-            var Servicio = new AbogadoService(Abogados);
-            var IdAbogado = "1042";
+            List<Abogado> Abogados = GetTestListaAbogados();
+            AbogadoService Servicio = new(Abogados);
+            string IdAbogado = "1042";
 
             // Agrega Todos los registros
-            var result = Servicio.ConsultaInfoAbogados(IdAbogado);
+            Abogado result = Servicio.ConsultaInfoAbogados(IdAbogado);
             // Nombre Abogado
-            var resultEsperado = "William Sánchez";
+            string resultEsperado = "William Sánchez";
 
             Assert.IsNotNull(result);
             Assert.AreEqual(resultEsperado, result.Nombre);
@@ -44,14 +44,16 @@ namespace ClientesNuevos.Domain.Test
 
         private List<Abogado> GetTestListaAbogados()
         {
-            var testAbogados = new List<Abogado>();
-            testAbogados.Add(GetTestAbogado1());
+            List<Abogado> testAbogados = new()
+            {
+                GetTestAbogado1()
+            };
             return testAbogados;
         }
 
         private Abogado GetTestAbogado1()
         {
-            var testAbogado = new Abogado
+            Abogado testAbogado = new Abogado
             {
                 _id = "1042",
                 Email = "william6071@hotmail.com",

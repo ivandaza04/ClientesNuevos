@@ -11,6 +11,8 @@ namespace ClientesNuevos.Domain.Services
     {
         public List<UsuarioNuevo> ConsultaClientesNuevos();
 
-        public Boolean UsuariosNuevosAResgistrar(List<UsuarioNuevo> clientesNuevos, UsuarioNuevo usuarioNuevos);
+        public List<UsuarioNuevo> UsuariosNuevosRegistrar(List<UsuarioNuevo> usuariosNuevos);
+
+        public Boolean UsuariosNuevosARegistrar(UsuarioNuevo usuarioNuevos);
     }
 }

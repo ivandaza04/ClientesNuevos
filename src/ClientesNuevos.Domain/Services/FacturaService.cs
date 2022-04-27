@@ -23,21 +23,21 @@ namespace ClientesNuevos.Domain.Services
             return Facturas;
         }
 
-        public List<Factura> ConsultaFacturasFecha(DateTime FechaMin, DateTime FechaMax)
+        public List<Factura> ConsultaFacturasFecha(DateTime fechaMin, DateTime fechaMax)
         {
-            foreach (Factura iteracion in Facturas)
-                if (FacturaRangoFecha(iteracion.FechaCreacion, FechaMin, FechaMax) == true)
+            foreach (Factura factura in Facturas)
+                if (FacturaRangoFecha(factura.FechaCreacion, fechaMin, fechaMax) == true)
                 {
-                    IdAbogados.Add(iteracion);
+                    IdAbogados.Add(factura);
                 }
 
             return IdAbogados;
         }
 
-        public bool FacturaRangoFecha(DateTime FechaCreacion, DateTime FechaMin, DateTime FechaMax)
+        public bool FacturaRangoFecha(DateTime FechaCreacion, DateTime fechaMin, DateTime fechaMax)
         {
-            var FacturaAnteriorFechaMin = DateTime.Compare(FechaCreacion, FechaMin);
-            var FacturaAnteriorFechaMax = DateTime.Compare(FechaCreacion, FechaMax);
+            var FacturaAnteriorFechaMin = DateTime.Compare(FechaCreacion, fechaMin);
+            var FacturaAnteriorFechaMax = DateTime.Compare(FechaCreacion, fechaMax);
 
             // Si la fecha Factura es mayor a FechaMin
             if (FacturaAnteriorFechaMin >= 0)
@@ -50,26 +50,26 @@ namespace ClientesNuevos.Domain.Services
                 return false;
         }
 
-        public List<UsuarioNuevo> ConsultaIdAbogadoEsUsuarioNuevo(List<Factura> ListaIdAbogados, DateTime FechaMax)
+        public List<UsuarioNuevo> ConsultaIdAbogadoEsUsuarioNuevo(List<Factura> ListaIdAbogados, DateTime fechaMax)
         {
             var IdAbogadoContado = 0;
-            foreach (Factura iteracion in ListaIdAbogados)
+            foreach (Factura factura in ListaIdAbogados)
             {
-                IdAbogadoContado = ContarIdAbogado(iteracion.IdAbogado, FechaMax);
+                IdAbogadoContado = ContarIdAbogado(factura.IdAbogado, fechaMax);
                 if (IdAbogadoContado == 1)
-                    UsuariosNuevos.Add(new UsuarioNuevo(iteracion._id, iteracion.IdAbogado, iteracion.Codigo, iteracion.SubTotal, iteracion.FechaCreacion));
+                    UsuariosNuevos.Add(new UsuarioNuevo(factura._id, factura.IdAbogado, factura.Codigo, factura.SubTotal, factura.FechaCreacion));
             }
 
             return UsuariosNuevos;
         }
 
-        public int ContarIdAbogado(String IdAbogado, DateTime FechaMax)
+        public int ContarIdAbogado(String IdAbogado, DateTime fechaMax)
         {
             var NIdAbogados = 0;
-            foreach (Factura iteracion in Facturas)
-                if (iteracion.IdAbogado == IdAbogado)
+            foreach (Factura factura in Facturas)
+                if (factura.IdAbogado == IdAbogado)
                 {
-                    if (DateTime.Compare(iteracion.FechaCreacion, FechaMax) <= 0)
+                    if (DateTime.Compare(factura.FechaCreacion, fechaMax) <= 0)
                     {
                         NIdAbogados++;
                     }

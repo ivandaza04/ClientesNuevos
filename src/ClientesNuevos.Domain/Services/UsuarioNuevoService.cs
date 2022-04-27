@@ -9,24 +9,33 @@ namespace ClientesNuevos.Domain.Services
 {
     public class UsuarioNuevoService : IUsuarioNuevoService
     {
-        List<UsuarioNuevo> Usuario_A_Registrar = new List<UsuarioNuevo>();
-        List<UsuarioNuevo> UsuariosNuevos = new List<UsuarioNuevo>();
+        List<UsuarioNuevo> UsuarioRegistrar = new List<UsuarioNuevo>();
+        List<UsuarioNuevo> ClientesNuevos = new List<UsuarioNuevo>();
 
-        public UsuarioNuevoService(List<UsuarioNuevo> usuariosNuevos)
+        public UsuarioNuevoService(List<UsuarioNuevo> clientesNuevos)
         {
-            UsuariosNuevos = usuariosNuevos;
+            ClientesNuevos = clientesNuevos;
         }
 
         public List<UsuarioNuevo> ConsultaClientesNuevos()
         {
-            return UsuariosNuevos;
+            return ClientesNuevos;
         }
 
-        public Boolean UsuariosNuevosAResgistrar(List<UsuarioNuevo> clientesNuevos, UsuarioNuevo usuarioNuevo)
+        public List<UsuarioNuevo> UsuariosNuevosRegistrar(List<UsuarioNuevo> usuariosNuevos)
+        {
+            foreach (UsuarioNuevo usuario in usuariosNuevos)
+                if (UsuariosNuevosARegistrar(usuario) != true)
+                    UsuarioRegistrar.Add(usuario);
+
+            return UsuarioRegistrar;
+        }
+
+        public Boolean UsuariosNuevosARegistrar(UsuarioNuevo usuarioNuevo)
         {
             // Evaluar si el usuario a registrar esta en clientesNuevos
-            foreach (UsuarioNuevo iteracion in clientesNuevos)
-                if (usuarioNuevo == iteracion)
+            foreach (UsuarioNuevo cliente in ClientesNuevos)
+                if (usuarioNuevo.IdAbogado == cliente.IdAbogado)
                 {
                     return true;
                 }

@@ -22,13 +22,13 @@ namespace ClientesNuevos.Domain.Services
             return Abogados;
         }
 
-        public Abogado ConsultaInfoAbogados(String IdAbogado)
+        public Abogado ConsultaInfoAbogados(String idAbogado)
         {
             // Buscar informacion abogado por el IdAbogado
-            foreach (Abogado iteracion in Abogados)
+            foreach (Abogado abogado in Abogados)
             {
-                if (iteracion._id == IdAbogado)
-                    InfoAbogados = iteracion;
+                if (abogado._id == idAbogado)
+                    InfoAbogados = abogado;
                 else
                     InfoAbogados = null;
             }

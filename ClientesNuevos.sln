@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientesNuevos.Domain.Test"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientesNuevos.Domain", "src\ClientesNuevos.Domain\ClientesNuevos.Domain.csproj", "{23D791A8-D8A4-4D86-A9FA-3A3733BAFF23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientesNuevos", "src\ClientesNuevos\ClientesNuevos.csproj", "{6CB92653-A51F-423F-BDAA-4669CA37BB83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientesNuevos", "src\ClientesNuevos\ClientesNuevos.csproj", "{6CB92653-A51F-423F-BDAA-4669CA37BB83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
