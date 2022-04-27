@@ -42,7 +42,7 @@ namespace ClientesNuevos
             // Lista de Facturas en las Fechas Establecidas en ListaFacturasEnFecha
             List<Factura> ListaFacturasEnFecha = new List<Factura>();
             ListaFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
-            Console.WriteLine("Todos los IdAbogados de facturas en Fecha " + FechaMin + " - " + FechaMax);
+            Console.WriteLine("Todos las facturas en la Fecha " + FechaMin + " - " + FechaMax);
             foreach (Factura factura in ListaFacturasEnFecha)
             {
                 Console.WriteLine("Codigo Factura: " + factura.Codigo + "\nFecha Creación: " + factura.FechaCreacion + "  IdAbogado: " + factura.IdAbogado + "\n");
@@ -79,6 +79,10 @@ namespace ClientesNuevos
                 Console.WriteLine("IdAbogado " + usuario.IdAbogado);
             }
 
+            // Consulta Info Abogados Email, Nombre, Activo y Ciudad
+            AbogadoService AbogadoServicio = new(AbogadoImpl.GetAbogados());
+
+
             // Guardar informacion en un archivo csv de la lista ListaUsuariosNuevos
             var ArchivoCSV = new ArchivoCSV();
             Console.WriteLine("Ingrese Dirección Archivo:");
@@ -88,8 +92,6 @@ namespace ClientesNuevos
             string Archivo = Direccion + "/" + Nombre + ".csv";
 
             Console.WriteLine("Espere...!");
-            // Crear objetos para agregar a ListaUsuariosNuevos encontrados
-            AbogadoService AbogadoServicio = new(AbogadoImpl.GetAbogados());
             foreach (UsuarioNuevo usuario in ListaClienteNuevos)
             {
                 var infoAbogado = AbogadoServicio.ConsultaAbogado(usuario.IdAbogado);
@@ -108,6 +110,9 @@ namespace ClientesNuevos
                 ArchivoCSV.WriteCVS(Archivo, InformacionFila);
             }
             Console.WriteLine("proceso finalizado!");
+
+
+
         }
     }
 }
