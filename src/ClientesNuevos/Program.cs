@@ -24,6 +24,7 @@ namespace ClientesNuevos
             List<Factura> ListaFacturas = new List<Factura>();
             ListaFacturas = FacturaServicio.ConsultaFacturas();
 
+            Console.WriteLine("enter...!");
             // Ingrese Fechas
             var FechaMin = new DateTime();
             var FechaMax = new DateTime();
@@ -41,7 +42,7 @@ namespace ClientesNuevos
                 Console.WriteLine("Codigo Factura: " + factura.Codigo + "\nFecha Creación: " + factura.FechaCreacion + "  IdAbogado: " + factura.IdAbogado + "\n");
             }
 
-            // Lista Usuarios Nuevos en la Fechas Establecidas
+            // Lista Usuarios Nuevos en las Fechas Establecidas
             List<UsuarioNuevo> ListaUsuariosNuevos = new List<UsuarioNuevo>();
             ListaUsuariosNuevos = FacturaServicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaIdAbogadosFacturasEnFecha, FechaMax);
             // Imprime
@@ -52,7 +53,7 @@ namespace ClientesNuevos
                 UsuarioNuevoImpl.CreateUsuarioNuevo(usuario);
             }
 
-            // Lista Cliente Nuevos
+            // Lista Consulta Todos Cliente Nuevos en SGP
             UsuarioNuevoService UsuarioNuevoServicio = new(UsuarioNuevoImpl.GetClientesNuevos());
             List<UsuarioNuevo> ListaClienteNuevos = new List<UsuarioNuevo>();
             ListaClienteNuevos = UsuarioNuevoServicio.ConsultaClientesNuevos();
@@ -63,7 +64,7 @@ namespace ClientesNuevos
                 Console.WriteLine("IdAbogado " + usuario.IdAbogado);
             }
 
-            // Lista Usuario Nuevos A Registrar
+            // Lista Usuario Nuevos A Registrar que no esten en Clientes Nuevos en SGP
             List<UsuarioNuevo> ListaUsuarios_A_Registrar = new List<UsuarioNuevo>();
             ListaUsuarios_A_Registrar = UsuarioNuevoServicio.UsuariosNuevosRegistrar(ListaUsuariosNuevos);
             Console.WriteLine("Todos los Clientes Nuevos no registrados en SGP");
@@ -81,9 +82,9 @@ namespace ClientesNuevos
             string Archivo = Direccion + "/" + Nombre + ".csv";
 
             Console.WriteLine("Espere...!");
-            // Crear objetos para agregar a ListaFacturas
+            // Crear objetos para agregar a ListaUsuariosNuevos encontrados
             AbogadoService AbogadoServicio = new(AbogadoImpl.GetAbogados());
-            foreach (UsuarioNuevo usuario in ListaUsuarios_A_Registrar)
+            foreach (UsuarioNuevo usuario in ListaUsuariosNuevos)
             {
                 var infoAbogado = AbogadoServicio.ConsultaInfoAbogados(usuario.IdAbogado);
                 var InformacionFila = "";
