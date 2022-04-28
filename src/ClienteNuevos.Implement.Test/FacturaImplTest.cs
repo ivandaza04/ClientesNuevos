@@ -17,13 +17,12 @@ namespace ClienteNuevos.Implement.Test
         {
             FacturaImplement FacturaImpl = new();
             FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
-            List<Factura> ListaFacturas = new List<Factura>();
 
             // Crea fecturas en la collecion
             foreach (Factura factura in GetTestListaFacturas())
                 FacturaImpl.CreateFactura(factura);
 
-            ListaFacturas = FacturaServicio.ConsultaFacturas();
+            List<Factura> ListaFacturas = FacturaServicio.ConsultaFacturas();
 
             Assert.IsNotNull(ListaFacturas);
         }
@@ -33,9 +32,8 @@ namespace ClienteNuevos.Implement.Test
         {
             FacturaImplement FacturaImpl = new();
             FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
-            List<Factura> ListaFacturas = new List<Factura>();
 
-            ListaFacturas = FacturaServicio.ConsultaFacturas();
+            List<Factura> ListaFacturas = FacturaServicio.ConsultaFacturas();
             var resultEsperado = 19;
 
             Assert.IsNotEmpty(ListaFacturas);
@@ -47,12 +45,11 @@ namespace ClienteNuevos.Implement.Test
         {
             FacturaImplement FacturaImpl = new();
             FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
-            List<Factura> ListaFacturasEnFecha = new List<Factura>();
 
             var FechaMin = new DateTime(2022, 4, 1);
             var FechaMax = new DateTime(2022, 4, 30);
 
-            ListaFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
+            List<Factura> ListaFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
             // Factura en el mes de Abril
             var resultEsperado = 9;
 
@@ -65,14 +62,12 @@ namespace ClienteNuevos.Implement.Test
         {
             FacturaImplement FacturaImpl = new();
             FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
-            List<Factura> ListaFacturasEnFecha = new List<Factura>();
-            List<UsuarioNuevo> ListaUsuariosNuevos = new List<UsuarioNuevo>();
 
             var FechaMin = new DateTime(2022, 4, 1);
             var FechaMax = new DateTime(2022, 4, 30);
-            ListaFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
+            List<Factura> ListaFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
 
-            ListaUsuariosNuevos = FacturaServicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaFacturasEnFecha, FechaMax);
+            List<UsuarioNuevo> ListaUsuariosNuevos = FacturaServicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaFacturasEnFecha, FechaMax);
             // Factura con usuario nuevos en Abril
             var resultEsperado = 5;
 
@@ -80,7 +75,7 @@ namespace ClienteNuevos.Implement.Test
             Assert.AreEqual(resultEsperado, ListaUsuariosNuevos.Count);
         }
 
-
+        // Crear estas factura en MongoDB
         private List<Factura> GetTestListaFacturas()
         {
             List<Factura> testFacturas = new List<Factura>

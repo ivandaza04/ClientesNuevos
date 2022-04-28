@@ -12,17 +12,35 @@ namespace ClientesNuevos.Domain.Test
     public class UsuarioNuevoServiceTest
     {
         [Test]
-        public void GetUsuarioNuevo_ReturnFacturas()
+        public void GetClientesNuevos_ReturnClientesNuevos()
         {
-            // Crear objetos para agregar a UsuarioNuevo
-            List<UsuarioNuevo> ListaUsuarioNuevo = GetTestListaClientesNuevos();
-            UsuarioNuevoService Servicio = new(ListaUsuarioNuevo);
+            List<UsuarioNuevo> ListaClientesNuevos = GetTestListaClientesNuevos();
+            UsuarioNuevoService Servicio = new(ListaClientesNuevos);
 
-            // Agrega Todos los registros
+            // Todos los registros de ClientesNuevos
             List<UsuarioNuevo> result = Servicio.ConsultaClientesNuevos();
 
-            Assert.IsNotNull(ListaUsuarioNuevo.Count);
-            Assert.AreEqual(ListaUsuarioNuevo.Count, result.Count);
+            Assert.IsNotNull(ListaClientesNuevos.Count);
+            Assert.AreEqual(ListaClientesNuevos.Count, result.Count);
+        }
+
+        [Test]
+        public void GetClientesNuevosPorFecha_ReturnClientesNuevosEnFecha()
+        {
+            List<UsuarioNuevo> ListaClientesNuevos = GetTestListaClientesNuevos();
+            UsuarioNuevoService Servicio = new(ListaClientesNuevos);
+
+            // Rango de Fechas
+            var FechaMin = new DateTime(2022, 4, 1);
+            var FechaMax = new DateTime(2022, 4, 30);
+
+            // Todos los registros de ClientesNuevos en las fechas establecidas 
+            List<UsuarioNuevo> ListaClientNuevoFecha = Servicio.ConsultaClientesNuevosFecha(FechaMin, FechaMax);
+            // resultEsperado es 1 ClientesNuevos en las fecha
+            var resultEsperado = 1;
+
+            Assert.IsNotNull(ListaClientNuevoFecha.Count);
+            Assert.AreEqual(resultEsperado, ListaClientNuevoFecha.Count);
         }
 
         [Test]
@@ -53,7 +71,7 @@ namespace ClientesNuevos.Domain.Test
         public void UsuariosNuevosARegistrar_ReturnTrue()
         {
             // Crear objetos para agregar a UsuarioNuevo
-            List<UsuarioNuevo> ListaClientesNuevos = GetTestListaClientesNuevos();
+            List<UsuarioNuevo> ListaClientesNuevos = GetTestListaUsuariosNuevos();
             UsuarioNuevoService Servicio = new(ListaClientesNuevos);
             UsuarioNuevo testUsuarioNuevo = new();
             // Usuario A No Registrar
@@ -73,9 +91,7 @@ namespace ClientesNuevos.Domain.Test
             // Crear objetos para agregar a UsuarioNuevo
             List<UsuarioNuevo> ListaClientesNuevos = GetTestListaClientesNuevos();
             UsuarioNuevoService Servicio = new(ListaClientesNuevos);
-
             List<UsuarioNuevo> usuariosNuevos = GetTestListaUsuariosNuevos();
-
 
             List<UsuarioNuevo> result = Servicio.UsuariosNuevosRegistrar(usuariosNuevos);
             // Se espera un solo un usuario para registrar
@@ -139,7 +155,7 @@ namespace ClientesNuevos.Domain.Test
                 IdAbogado = "2",
                 CodigoFactura = "Demo2",
                 SubTotalFactura = "test",
-                FechaCreacionFactura = new DateTime(2022, 4, 20),
+                FechaCreacionFactura = new DateTime(2022, 4, 22),
             };
             return testUsuarioNuevo;
         }

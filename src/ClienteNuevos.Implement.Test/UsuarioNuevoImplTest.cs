@@ -19,15 +19,12 @@ namespace ClienteNuevos.Implement.Test
             UsuarioNuevoImplement UsuarioNuevoImpl = new();
             FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
 
-            List<Factura> ListaFacturasEnFecha = new List<Factura>();
-            List<UsuarioNuevo> ListaUsuariosNuevos = new List<UsuarioNuevo>();
-
             var FechaMin = new DateTime(2022, 4, 1);
             var FechaMax = new DateTime(2022, 4, 30);
-            ListaFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
+            List<Factura> ListaFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
 
             // ListaUsuariosNuevos del mes de Abril
-            ListaUsuariosNuevos = FacturaServicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaFacturasEnFecha, FechaMax);
+            List<UsuarioNuevo> ListaUsuariosNuevos = FacturaServicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaFacturasEnFecha, FechaMax);
 
             // Crear usuarios en tabla ClientesNuevos de SGP
             foreach (UsuarioNuevo usuario in ListaUsuariosNuevos)
@@ -35,8 +32,7 @@ namespace ClienteNuevos.Implement.Test
                 UsuarioNuevoImpl.CreateUsuarioNuevo(usuario);
             }
 
-            List<UsuarioNuevo> ListaClienteNuevos = new List<UsuarioNuevo>();
-            ListaClienteNuevos = UsuarioNuevoImpl.GetClientesNuevos();
+            List<UsuarioNuevo> ListaClienteNuevos = UsuarioNuevoImpl.GetClientesNuevos();
             // Se registraron 5 usuarios nuevo de Abril en ClientesNuevos
             var result = 5;
 
@@ -49,14 +45,31 @@ namespace ClienteNuevos.Implement.Test
         {
             UsuarioNuevoImplement UsuarioNuevoImpl = new();
             UsuarioNuevoService UsuarioNuevoServicio = new(UsuarioNuevoImpl.GetClientesNuevos());
-            List<UsuarioNuevo> ListaClienteNuevos = new List<UsuarioNuevo>();
 
-            ListaClienteNuevos = UsuarioNuevoServicio.ConsultaClientesNuevos();
+            List<UsuarioNuevo> ListaClienteNuevos = UsuarioNuevoServicio.ConsultaClientesNuevos();
             // Son 5 ClienteNuevos
             var resultEsperado = 5;
 
             Assert.IsNotNull(ListaClienteNuevos);
             Assert.AreEqual(resultEsperado, ListaClienteNuevos.Count);
+        }
+
+        [Test]
+        public void ConsultarClientesNuevosFecha()
+        {
+            UsuarioNuevoImplement UsuarioNuevoImpl = new();
+            UsuarioNuevoService UsuarioNuevoServicio = new(UsuarioNuevoImpl.GetClientesNuevos());
+
+            // Rango de Fechas
+            var FechaMin = new DateTime(2022, 4, 10);
+            var FechaMax = new DateTime(2022, 4, 30);
+
+            List<UsuarioNuevo> ListaClienteNuevosFecha = UsuarioNuevoServicio.ConsultaClientesNuevosFecha(FechaMin, FechaMax);
+            // Son 5 ClienteNuevos
+            var resultEsperado = 2;
+
+            Assert.IsNotNull(ListaClienteNuevosFecha);
+            Assert.AreEqual(resultEsperado, ListaClienteNuevosFecha.Count);
         }
     }
 }

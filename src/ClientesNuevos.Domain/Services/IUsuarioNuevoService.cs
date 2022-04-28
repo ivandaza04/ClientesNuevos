@@ -11,6 +11,10 @@ namespace ClientesNuevos.Domain.Services
     {
         public List<UsuarioNuevo> ConsultaClientesNuevos();
 
+        public List<UsuarioNuevo> ConsultaClientesNuevosFecha(DateTime FechaMin, DateTime FechaMax);
+
+        public bool ClienteNuevoRangoFecha(DateTime FechaCreacion, DateTime fechaMin, DateTime fechaMax);
+
         public List<UsuarioNuevo> UsuariosNuevosRegistrar(List<UsuarioNuevo> usuariosNuevos);
 
         public Boolean UsuariosNuevosARegistrar(UsuarioNuevo usuarioNuevos);
