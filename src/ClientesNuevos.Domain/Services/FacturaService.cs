@@ -13,6 +13,10 @@ namespace ClientesNuevos.Domain.Services
         List<Factura> ListaFacturasFecha = new List<Factura>();
         List<UsuarioNuevo> ListaUsuariosNuevos = new List<UsuarioNuevo>();
 
+        public FacturaService()
+        {
+        }
+
         public FacturaService(List<Factura> listaFacturas)
         {
             ListaFacturas = listaFacturas;

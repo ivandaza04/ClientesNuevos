@@ -12,6 +12,10 @@ namespace ClientesNuevos.Domain.Services
         List<UsuarioNuevo> ListaClientesNuevos = new List<UsuarioNuevo>();
         List<UsuarioNuevo> ListaClientesNuevosFecha = new List<UsuarioNuevo>();
 
+        public UsuarioNuevoService()
+        {
+        }
+
         public UsuarioNuevoService(List<UsuarioNuevo> listaClientesNuevos)
         {
             ListaClientesNuevos = listaClientesNuevos;

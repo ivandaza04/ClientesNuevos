@@ -43,6 +43,44 @@ namespace ClientesNuevos.Domain.Test
             Assert.AreEqual(resultEsperado, ListaClientNuevoFecha.Count);
         }
 
+        [Test]
+        public void ClienteRangoFecha_ReturnTrue()
+        {
+            UsuarioNuevoService Servicio = new();
+
+            // Rango de Fechas
+            var FechaMin = new DateTime(2022, 4, 1);
+            var FechaMax = new DateTime(2022, 4, 30);
+
+            // Fecha de Factura en el rango
+            var FechaCreacionRangoTrue = new DateTime(2022, 4, 20);
+
+            // Evalua condicion de Fecha de Factura en el rango
+            bool resultTrue = Servicio.ClienteNuevoRangoFecha(FechaCreacionRangoTrue, FechaMin, FechaMax);
+
+            // Resultado condicion de Fecha de Factura en el rango
+            Assert.IsTrue(resultTrue);
+        }
+
+        [Test]
+        public void ClienteRangoFecha_ReturnFalse()
+        {
+            UsuarioNuevoService Servicio = new();
+
+            // Rango de Fechas
+            var FechaMin = new DateTime(2022, 3, 25);
+            var FechaMax = new DateTime(2022, 4, 25);
+
+            // Fecha de Factura fuera del rango
+            var FechaCreacionRangoFalse = new DateTime(2022, 2, 25);
+
+            // Evalua condicion de Fecha de Factura fuera del rango
+            bool resultFalse = Servicio.ClienteNuevoRangoFecha(FechaCreacionRangoFalse, FechaMin, FechaMax);
+
+            // Resultado condicion de Fecha de Factura fuera del rango
+            Assert.IsFalse(resultFalse);
+        }
+
         private List<UsuarioNuevo> GetTestListaClientesNuevos()
         {
             List<UsuarioNuevo> testClientesNuevos = new()
