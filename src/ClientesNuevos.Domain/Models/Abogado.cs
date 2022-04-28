@@ -8,18 +8,6 @@ namespace ClientesNuevos.Domain.Models
 {
     public class Abogado
     {
-        public Abogado()
-        {
-        }
-
-        public Abogado(string id, bool activo, string nombre, string email, string ciudad)
-        {
-            _id = id;
-            Activo = activo;
-            Nombre = nombre;
-            Email = email;
-            Ciudad = ciudad;
-        }
 
         public string _id { get; set; }
 
@@ -84,5 +72,18 @@ namespace ClientesNuevos.Domain.Models
         public Boolean DesactivacionTotal { get; set; }
 
         public DateTime FechaInicioFactura { get; set; }
+
+        public Abogado()
+        {
+        }
+
+        public Abogado(string id, bool activo, string nombre, string email, string ciudad)
+        {
+            _id = id;
+            Activo = activo;
+            Nombre = nombre;
+            Email = email;
+            Ciudad = ciudad;
+        }
     }
 }

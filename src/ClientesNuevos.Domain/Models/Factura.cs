@@ -9,18 +9,6 @@ namespace ClientesNuevos.Domain.Models
     public class Factura
     {
 
-        public Factura()
-        {
-        }
-
-        public Factura(string id, string codigo, string idAbogado, DateTime fechaCreacion, string subTotal)
-        {
-            _id = id;
-            Codigo = codigo;
-            IdAbogado = idAbogado;
-            FechaCreacion = fechaCreacion;
-            SubTotal = subTotal;
-        }
         public string _id { get; set; }
 
         public string Codigo { get; set; }
@@ -73,5 +61,17 @@ namespace ClientesNuevos.Domain.Models
 
         public string IdProcesoCobro { get; set; }
 
+        public Factura()
+        {
+        }
+
+        public Factura(string id, string codigo, string idAbogado, DateTime fechaCreacion, string subTotal)
+        {
+            _id = id;
+            Codigo = codigo;
+            IdAbogado = idAbogado;
+            FechaCreacion = fechaCreacion;
+            SubTotal = subTotal;
+        }
     }
 }

@@ -8,6 +8,17 @@ namespace ClientesNuevos.Domain.Models
 {
     public class UsuarioNuevo
     {
+
+        public string _id { get; set; }
+
+        public string IdAbogado { get; set; }
+
+        public string CodigoFactura { get; set; }
+
+        public string SubTotalFactura { get; set; }
+
+        public DateTime FechaCreacionFactura { get; set; }
+
         public UsuarioNuevo()
         {
         }
@@ -20,16 +31,6 @@ namespace ClientesNuevos.Domain.Models
             SubTotalFactura = subTotalFactura;
             FechaCreacionFactura = fechaCreacionFactura;
         }
-
-        public string _id { get; set; }
-
-        public string IdAbogado { get; set; }
-
-        public string CodigoFactura { get; set; }
-
-        public string SubTotalFactura { get; set; }
-
-        public DateTime FechaCreacionFactura { get; set; }
 
     }
 }
