@@ -12,7 +12,7 @@ namespace ClientesNuevos
         {
             Console.WriteLine("Facturas!");
             // Declarar Implement para consultar en MongoDB
-            FacturaImplement FacturaImplement = new();
+            FacturaImplement FacturaImpl = new();
             UsuarioNuevoImplement UsuarioNuevoImpl = new();
             AbogadoImplement AbogadoImpl = new();
             ProcesoImplement ProcesoImpl = new();
@@ -20,7 +20,7 @@ namespace ClientesNuevos
 
             Console.WriteLine("Espere...!");
             // Lista de Todas las Facturas en ListaFacturas
-            FacturaService FacturaServicio = new(FacturaImplement.GetFacturas());
+            FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
             List<Factura> ListaFacturas = new List<Factura>();
             ListaFacturas = FacturaServicio.ConsultaFacturas();
 
@@ -48,7 +48,7 @@ namespace ClientesNuevos
                 Console.WriteLine("Codigo Factura: " + factura.Codigo + "\nFecha Creación: " + factura.FechaCreacion + "  IdAbogado: " + factura.IdAbogado + "\n");
             }
 
-            // Lista Usuarios Nuevos en las Fechas Establecidasm en ListaUsuariosNuevos
+            // Lista Usuarios Nuevos en las Fecha Establecida en ListaUsuariosNuevos e inserta en ClientesNuevos
             List<UsuarioNuevo> ListaUsuariosNuevos = new List<UsuarioNuevo>();
             ListaUsuariosNuevos = FacturaServicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaFacturasEnFecha, FechaMax);
             // Imprime
@@ -74,7 +74,7 @@ namespace ClientesNuevos
             List<UsuarioNuevo> ListaUsuarios_A_Registrar = new List<UsuarioNuevo>();
             ListaUsuarios_A_Registrar = UsuarioNuevoServicio.UsuariosNuevosRegistrar(ListaUsuariosNuevos);
             Console.WriteLine("Todos los Clientes Nuevos no registrados en SGP");
-            foreach (UsuarioNuevo usuario in ListaUsuarios_A_Registrar)
+            foreach (UsuarioNuevo usuario in ListaUsuariosNuevos)
             {
                 Console.WriteLine("IdAbogado " + usuario.IdAbogado);
             }
@@ -110,8 +110,6 @@ namespace ClientesNuevos
                 ArchivoCSV.WriteCVS(Archivo, InformacionFila);
             }
             Console.WriteLine("proceso finalizado!");
-
-
 
         }
     }

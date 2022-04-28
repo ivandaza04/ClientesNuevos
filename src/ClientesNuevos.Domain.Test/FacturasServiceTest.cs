@@ -36,11 +36,11 @@ namespace ClientesNuevos.Domain.Test
             FacturaService Servicio = new(ListaFacturas);
 
             // Rango de Fechas
-            var FechaMin = new DateTime(2022, 3, 25);
-            var FechaMax = new DateTime(2022, 4, 25);
+            var FechaMin = new DateTime(2022, 4, 1);
+            var FechaMax = new DateTime(2022, 4, 30);
 
             // Fecha de Factura en el rango
-            var FechaCreacionRangoTrue = new DateTime(2022, 3, 25);
+            var FechaCreacionRangoTrue = new DateTime(2022, 4, 20);
 
             // Evalua condicion de Fecha de Factura en el rango
             bool resultTrue = Servicio.FacturaRangoFecha(FechaCreacionRangoTrue, FechaMin, FechaMax);
@@ -94,7 +94,7 @@ namespace ClientesNuevos.Domain.Test
         }
 
         [Test]
-        public void ConsultaUsuarioNuevo_Return2Facturas()
+        public void ConsultaUsuarioNuevo_ReturnUsuarioNuevos()
         {
             // Crear objetos para agregar a ListaFacturas
             List<Factura> ListaFacturas = GetTestListaFacturas();
@@ -107,10 +107,10 @@ namespace ClientesNuevos.Domain.Test
             // Evalua Factura esta en las fechas establecidas 
             List<Factura> ListaIdAbogados = Servicio.ConsultaFacturasFecha(FechaMin, FechaMax);
 
-            // Agrega Facturas con Usuarios Nuevos
+            // Agrega Usuarios Nuevos
             List<UsuarioNuevo> result = Servicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaIdAbogados,FechaMax);
-            // Facturas Agregadas son 2 ya que 2 facturas en la fecha tiene usuario nuevo
-            // Ya que factura con abogado IdAbogado = "3" no es nuevo
+            // Agrega 2 Usuarios Nuevos, ya que IdAbogado 1 y 2 son nuevos
+            // Ya que abogado IdAbogado = "3" no es nuevo
             var resultEsperado = 2;
 
             Assert.IsNotNull(ListaFacturas.Count);
