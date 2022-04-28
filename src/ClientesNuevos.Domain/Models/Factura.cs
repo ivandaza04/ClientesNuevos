@@ -8,7 +8,6 @@ namespace ClientesNuevos.Domain.Models
 {
     public class Factura
     {
-
         public string _id { get; set; }
 
         public string Codigo { get; set; }
