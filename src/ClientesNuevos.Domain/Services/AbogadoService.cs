@@ -25,15 +25,11 @@ namespace ClientesNuevos.Domain.Services
         // Consultar abogado en ListaAbogados y devolver objeto Abogado
         public Abogado ConsultaAbogado(String idAbogado)
         {
-            // Buscar informacion abogado por el IdAbogado
             foreach (Abogado abogado in ListaAbogados)
-            {
                 if (abogado._id == idAbogado)
-                    Abogado = abogado;
-                else
-                    Abogado = null;
-            }
-            return Abogado;
+                    return abogado;
+
+            return null;
         }
     }
 }

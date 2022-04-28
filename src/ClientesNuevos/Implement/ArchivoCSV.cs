@@ -13,7 +13,7 @@ namespace ClientesNuevos.Implement
 
         public void WriteCVS(string fileName, string informacionfila)
         {
-            var titulos = "Id Abogado,Codigo Factura,SubTotal Factura,Fecha Creacion Factura,Email,Activo,Nombre,Ciudad,Numero Procesos Rama,Numero procesos Tyba";
+            var titulos = "Id Abogado,Codigo Factura,SubTotal Factura,Fecha Creacion Factura,Email,Activo,Nombre,Ciudad,Numero Procesos Rama,Numero Procesos Tyba";
 
             if (!File.Exists(fileName))
             {

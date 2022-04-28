@@ -10,14 +10,14 @@ namespace ClientesNuevos.Implement
 {
     public class AbogadoImplement
     {
-
         private readonly IMongoCollection<Abogado> _Abogados;
         private List<Abogado> ListaAbogados;
         private Abogado Abogado;
 
         public AbogadoImplement()
         {
-            var client = new MongoClient("mongodb://monito:M1c43l4T13n3UnC0ch3#@3.23.228.28:27017");
+            //var client = new MongoClient("mongodb://monito:M1c43l4T13n3UnC0ch3#@3.23.228.28:27017");
+            var client = new MongoClient("mongodb://localhost:27017");
             var database = client.GetDatabase("Monolegal");
 
             _Abogados = database.GetCollection<Abogado>("Abogados");
@@ -33,6 +33,12 @@ namespace ClientesNuevos.Implement
             foreach (Abogado result in Query)
                 ListaAbogados.Add(new Abogado(result._id, result.Activo, result.Nombre, result.Email, result.Ciudad));
             return ListaAbogados;
+        }
+
+        public Abogado CreateAbogado(Abogado abogado)
+        {
+            _Abogados.InsertOne(abogado);
+            return abogado;
         }
     }
 }

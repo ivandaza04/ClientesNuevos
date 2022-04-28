@@ -15,7 +15,8 @@ namespace ClientesNuevos.Implement
 
         public ProcesoImplement()
         {
-            var client = new MongoClient("mongodb://monito:M1c43l4T13n3UnC0ch3#@3.23.228.28:27017");
+            //var client = new MongoClient("mongodb://monito:M1c43l4T13n3UnC0ch3#@3.23.228.28:27017");
+            var client = new MongoClient("mongodb://localhost:27017");
             var database = client.GetDatabase("Monolegal");
 
             _Procesos = database.GetCollection<Proceso>("Procesos");

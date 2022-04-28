@@ -66,9 +66,7 @@ namespace ClientesNuevos.Domain.Services
         {
             foreach (UsuarioNuevo cliente in ListaClientesNuevos)
                 if (usuarioNuevo.IdAbogado == cliente.IdAbogado)
-                {
                     return true;
-                }
             
             return false;
         }

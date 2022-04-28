@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ClientesNuevos.Implement
 {
-    public  class FacturaImplement
+    public class FacturaImplement
     {
         private readonly IMongoCollection<Factura> _Facturas;
         private List<Factura> ListaFacturas;

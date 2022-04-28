@@ -18,12 +18,6 @@ namespace ClientesNuevos
             ProcesoImplement ProcesoImpl = new();
             ProcesoTybaImplement ProcesoTybaImpl = new();
 
-            Console.WriteLine("Espere...!");
-            // Lista de Todas las Facturas en ListaFacturas
-            FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
-            List<Factura> ListaFacturas = new List<Factura>();
-            ListaFacturas = FacturaServicio.ConsultaFacturas();
-
             // Ingrese Fechas
             var FechaMin = new DateTime();
             var FechaMax = new DateTime();
@@ -34,56 +28,34 @@ namespace ClientesNuevos
                 FechaMin = Convert.ToDateTime(Console.ReadLine());
                 Console.WriteLine("Ingrese Fecha Maxima(AÑO.MES.DIA):");
                 FechaMax = Convert.ToDateTime(Console.ReadLine());
-            } catch (FormatException ex)
+            }
+            catch (FormatException ex)
             {
                 Console.WriteLine("Error Fecha Invalida");
             }
 
-            // Lista de Facturas en las Fechas Establecidas en ListaFacturasEnFecha
-            List<Factura> ListaFacturasEnFecha = new List<Factura>();
-            ListaFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
-            Console.WriteLine("Todos las facturas en la Fecha " + FechaMin + " - " + FechaMax);
-            foreach (Factura factura in ListaFacturasEnFecha)
-            {
-                Console.WriteLine("Codigo Factura: " + factura.Codigo + "\nFecha Creación: " + factura.FechaCreacion + "  IdAbogado: " + factura.IdAbogado + "\n");
-            }
+            Console.WriteLine("Espere...!");
 
-            // Lista Usuarios Nuevos en las Fecha Establecida en ListaUsuariosNuevos e inserta en ClientesNuevos
-            List<UsuarioNuevo> ListaUsuariosNuevos = new List<UsuarioNuevo>();
-            ListaUsuariosNuevos = FacturaServicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaFacturasEnFecha, FechaMax);
-            // Imprime
-            Console.WriteLine("Todos los IdAbogados como usuarios nuevos a registrar en Fecha " + FechaMin + " - " + FechaMax);
+            // Consulta Facturas en las fechas
+            FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
+            List<Factura> ListaFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
+
+            // Consulta UsuarioNuevo en las fechas
+            List<UsuarioNuevo> ListaUsuariosNuevos = FacturaServicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaFacturasEnFecha, FechaMax);
+            // Crear usuarios en colleccion ClientesNuevos de SGP
             foreach (UsuarioNuevo usuario in ListaUsuariosNuevos)
-            {
-                Console.WriteLine("IdAbogado Nuevos: " + usuario.IdAbogado);
-                UsuarioNuevoImpl.CreateUsuarioNuevo(usuario);
-            }
+                {
+                    UsuarioNuevoImpl.CreateUsuarioNuevo(usuario);
+                }
 
-            // Lista Consulta Todos Cliente Nuevos en SGP en ListaClienteNuevos
+            // ListaClienteNuevosFecha en colleccion ClientesNuevos
             UsuarioNuevoService UsuarioNuevoServicio = new(UsuarioNuevoImpl.GetClientesNuevos());
-            List<UsuarioNuevo> ListaClienteNuevos = new List<UsuarioNuevo>();
-            ListaClienteNuevos = UsuarioNuevoServicio.ConsultaClientesNuevos();
-            // Imprime
-            Console.WriteLine("Todos los Clientes Nuevos ya registrados en SGP");
-            foreach (UsuarioNuevo usuario in ListaClienteNuevos)
-            {
-                Console.WriteLine("IdAbogado " + usuario.IdAbogado);
-            }
-
-            // Lista Usuario Nuevos A Registrar que no esten en Clientes Nuevos en SGP en ListaUsuarios_A_Registrar
-            List<UsuarioNuevo> ListaUsuarios_A_Registrar = new List<UsuarioNuevo>();
-            ListaUsuarios_A_Registrar = UsuarioNuevoServicio.UsuariosNuevosRegistrar(ListaUsuariosNuevos);
-            Console.WriteLine("Todos los Clientes Nuevos no registrados en SGP");
-            foreach (UsuarioNuevo usuario in ListaUsuariosNuevos)
-            {
-                Console.WriteLine("IdAbogado " + usuario.IdAbogado);
-            }
+            List<UsuarioNuevo> ListaClienteNuevosFecha = UsuarioNuevoServicio.ConsultaClientesNuevosFecha(FechaMin, FechaMax);
 
             // Consulta Info Abogados Email, Nombre, Activo y Ciudad
             AbogadoService AbogadoServicio = new(AbogadoImpl.GetAbogados());
 
-
-            // Guardar informacion en un archivo csv de la lista ListaUsuariosNuevos
+            // Guardar informacion en un archivo csv
             var ArchivoCSV = new ArchivoCSV();
             Console.WriteLine("Ingrese Dirección Archivo:");
             var Direccion = Convert.ToString(Console.ReadLine());
@@ -92,14 +64,15 @@ namespace ClientesNuevos
             string Archivo = Direccion + "/" + Nombre + ".csv";
 
             Console.WriteLine("Espere...!");
-            foreach (UsuarioNuevo usuario in ListaClienteNuevos)
+            foreach (UsuarioNuevo usuario in ListaClienteNuevosFecha)
             {
-                var infoAbogado = AbogadoServicio.ConsultaAbogado(usuario.IdAbogado);
                 var InformacionFila = "";
+                var infoAbogado = AbogadoServicio.ConsultaAbogado(usuario.IdAbogado);
                 if (infoAbogado != null)
                 {
                     InformacionFila = usuario.IdAbogado + "," + usuario.CodigoFactura + "," + usuario.SubTotalFactura + "," + usuario.FechaCreacionFactura + "," + infoAbogado.Email + "," + infoAbogado.Activo + "," + infoAbogado.Nombre + "," + infoAbogado.Ciudad;
-                } else
+                }
+                else
                 {
                     InformacionFila = usuario.IdAbogado + "," + usuario.CodigoFactura + "," + usuario.SubTotalFactura + "," + usuario.FechaCreacionFactura + ",null,null,null,null";
                 }
@@ -109,7 +82,8 @@ namespace ClientesNuevos
 
                 ArchivoCSV.WriteCVS(Archivo, InformacionFila);
             }
-            Console.WriteLine("proceso finalizado!");
+
+            Console.WriteLine("Proceso finalizado!");
 
         }
     }
