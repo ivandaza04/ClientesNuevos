@@ -12,11 +12,12 @@ namespace ClientesNuevos
         {
             Console.WriteLine("Facturas!");
             // Declarar Implement para consultar en MongoDB
-            FacturaImplement FacturaImpl = new();
-            UsuarioNuevoImplement UsuarioNuevoImpl = new();
-            AbogadoImplement AbogadoImpl = new();
-            ProcesoImplement ProcesoImpl = new();
-            ProcesoTybaImplement ProcesoTybaImpl = new();
+            SettingsDatabase settingsDatabase = new();
+            FacturaImplement FacturaImpl = new(settingsDatabase);
+            UsuarioNuevoImplement UsuarioNuevoImpl = new(settingsDatabase);
+            AbogadoImplement AbogadoImpl = new(settingsDatabase);
+            ProcesoImplement ProcesoImpl = new(settingsDatabase);
+            ProcesoTybaImplement ProcesoTybaImpl = new(settingsDatabase);
 
             // Ingrese Fechas
             var FechaMin = new DateTime();

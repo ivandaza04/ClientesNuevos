@@ -28,9 +28,7 @@ namespace ClientesNuevos.Domain.Services
         {
             foreach (Factura factura in ListaFacturas)
                 if (FacturaRangoFecha(factura.FechaCreacion, fechaMin, fechaMax) == true)
-                {
                     ListaFacturasFecha.Add(factura);
-                }
 
             return ListaFacturasFecha;
         }

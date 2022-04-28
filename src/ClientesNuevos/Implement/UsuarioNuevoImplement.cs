@@ -14,12 +14,12 @@ namespace ClientesNuevos.Implement
         private List<UsuarioNuevo> ListaClientesNuevos;
         private UsuarioNuevo Usuario;
 
-        public UsuarioNuevoImplement()
+        public UsuarioNuevoImplement(SettingsDatabase clienteNuevoDatabase)
         {
-            var client = new MongoClient("mongodb://monito:M1c43l4T13n3UnC0ch3#@3.23.228.28:27017");
-            var database = client.GetDatabase("SGP");
+            var client = new MongoClient(clienteNuevoDatabase.ConnectionString);
+            var database = client.GetDatabase(clienteNuevoDatabase.SGPDatabaseName);
 
-            _UsuarioNuevo = database.GetCollection<UsuarioNuevo>("ClientesNuevos");
+            _UsuarioNuevo = database.GetCollection<UsuarioNuevo>(clienteNuevoDatabase.ClientesNuevosCollectionName);
 
             ListaClientesNuevos = new List<UsuarioNuevo>();
 

@@ -15,8 +15,5 @@ namespace ClientesNuevos.Domain.Services
 
         public bool ClienteNuevoRangoFecha(DateTime FechaCreacion, DateTime fechaMin, DateTime fechaMax);
 
-        public List<UsuarioNuevo> UsuariosNuevosRegistrar(List<UsuarioNuevo> usuariosNuevos);
-
-        public Boolean UsuariosNuevosARegistrar(UsuarioNuevo usuarioNuevos);
     }
 }

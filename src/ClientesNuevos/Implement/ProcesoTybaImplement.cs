@@ -13,12 +13,12 @@ namespace ClientesNuevos.Implement
         private readonly IMongoCollection<ProcesoTyba> _ProcesoTyba;
         private ProcesoTyba ProcesoTyba;
 
-        public ProcesoTybaImplement()
+        public ProcesoTybaImplement(SettingsDatabase procesoTybaDataBase)
         {
-            var client = new MongoClient("mongodb://monito:M1c43l4T13n3UnC0ch3#@3.23.228.28:27017");
-            var database = client.GetDatabase("Monolegal");
+            var client = new MongoClient(procesoTybaDataBase.ConnectionString);
+            var database = client.GetDatabase(procesoTybaDataBase.MonolegalDatabaseName);
 
-            _ProcesoTyba = database.GetCollection<ProcesoTyba>("ProcesosTyba");
+            _ProcesoTyba = database.GetCollection<ProcesoTyba>(procesoTybaDataBase.ProcesosTybaCollectionName);
 
             ProcesoTyba = new ProcesoTyba();
         }

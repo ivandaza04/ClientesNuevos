@@ -14,12 +14,12 @@ namespace ClientesNuevos.Implement
         private List<Factura> ListaFacturas;
         private Factura Factura;
 
-        public FacturaImplement()
+        public FacturaImplement(SettingsDatabase facturasDatabase)
         {
-            var client = new MongoClient("mongodb://monito:M1c43l4T13n3UnC0ch3#@3.23.228.28:27017");
-            var database = client.GetDatabase("Monolegal");
+            var client = new MongoClient(facturasDatabase.ConnectionString);
+            var database = client.GetDatabase(facturasDatabase.MonolegalDatabaseName);
 
-            _Facturas = database.GetCollection<Factura>("Facturas");
+            _Facturas = database.GetCollection<Factura>(facturasDatabase.FacturasCollectionName);
 
             ListaFacturas = new List<Factura>();
 

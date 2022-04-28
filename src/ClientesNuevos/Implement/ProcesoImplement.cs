@@ -13,12 +13,12 @@ namespace ClientesNuevos.Implement
         private readonly IMongoCollection<Proceso> _Procesos;
         private Proceso Proceso;
 
-        public ProcesoImplement()
+        public ProcesoImplement(SettingsDatabase procesosDatabase)
         {
-            var client = new MongoClient("mongodb://monito:M1c43l4T13n3UnC0ch3#@3.23.228.28:27017");
-            var database = client.GetDatabase("Monolegal");
+            var client = new MongoClient(procesosDatabase.ConnectionString);
+            var database = client.GetDatabase(procesosDatabase.MonolegalDatabaseName);
 
-            _Procesos = database.GetCollection<Proceso>("Procesos");
+            _Procesos = database.GetCollection<Proceso>(procesosDatabase.ProcesosCollectionName);
 
             Proceso = new Proceso();
         }
