@@ -15,7 +15,8 @@ namespace ClienteNuevos.Implement.Test
         [Test]
         public void CreateAbogado_ReturnAbogado()
         {
-            AbogadoImplement AbogadoImpl = new();
+            SettingsDatabase settingsDatabase = new();
+            AbogadoImplement AbogadoImpl = new(settingsDatabase);
             AbogadoService AbogadoServicio = new(AbogadoImpl.GetAbogados());
 
             // Crea fecturas en la collecion

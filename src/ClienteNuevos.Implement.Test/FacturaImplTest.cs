@@ -15,7 +15,8 @@ namespace ClienteNuevos.Implement.Test
         [Test]
         public void CreateFacturas_ReturnFactura()
         {
-            FacturaImplement FacturaImpl = new();
+            SettingsDatabase settingsDatabase = new();
+            FacturaImplement FacturaImpl = new(settingsDatabase);
             FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
 
             // Crea fecturas en la collecion
@@ -30,7 +31,8 @@ namespace ClienteNuevos.Implement.Test
         [Test]
         public void GetFacturas_ReturnFacturas()
         {
-            FacturaImplement FacturaImpl = new();
+            SettingsDatabase settingsDatabase = new();
+            FacturaImplement FacturaImpl = new(settingsDatabase);
             FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
 
             List<Factura> ListaFacturas = FacturaServicio.ConsultaFacturas();
@@ -43,7 +45,8 @@ namespace ClienteNuevos.Implement.Test
         [Test]
         public void ConsultaFacturasFecha_ReturnFacturaFecha()
         {
-            FacturaImplement FacturaImpl = new();
+            SettingsDatabase settingsDatabase = new();
+            FacturaImplement FacturaImpl = new(settingsDatabase);
             FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
 
             var FechaMin = new DateTime(2022, 4, 1);
@@ -60,7 +63,8 @@ namespace ClienteNuevos.Implement.Test
         [Test]
         public void ConsultaUsuarioNuevo_ReturnUsuarioNuevos()
         {
-            FacturaImplement FacturaImpl = new();
+            SettingsDatabase settingsDatabase = new();
+            FacturaImplement FacturaImpl = new(settingsDatabase);
             FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
 
             var FechaMin = new DateTime(2022, 4, 1);

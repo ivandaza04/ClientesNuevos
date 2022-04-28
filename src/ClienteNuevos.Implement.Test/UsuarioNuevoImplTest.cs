@@ -15,8 +15,9 @@ namespace ClienteNuevos.Implement.Test
         [Test]
         public void CreateUsuarioNuevo()
         {
-            FacturaImplement FacturaImpl = new();
-            UsuarioNuevoImplement UsuarioNuevoImpl = new();
+            SettingsDatabase settingsDatabase = new();
+            FacturaImplement FacturaImpl = new(settingsDatabase);
+            UsuarioNuevoImplement UsuarioNuevoImpl = new(settingsDatabase);
             FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
 
             var FechaMin = new DateTime(2022, 4, 1);
@@ -43,7 +44,8 @@ namespace ClienteNuevos.Implement.Test
         [Test]
         public void ConsultarClientesNuevos()
         {
-            UsuarioNuevoImplement UsuarioNuevoImpl = new();
+            SettingsDatabase settingsDatabase = new();
+            UsuarioNuevoImplement UsuarioNuevoImpl = new(settingsDatabase);
             UsuarioNuevoService UsuarioNuevoServicio = new(UsuarioNuevoImpl.GetClientesNuevos());
 
             List<UsuarioNuevo> ListaClienteNuevos = UsuarioNuevoServicio.ConsultaClientesNuevos();
@@ -57,7 +59,8 @@ namespace ClienteNuevos.Implement.Test
         [Test]
         public void ConsultarClientesNuevosFecha()
         {
-            UsuarioNuevoImplement UsuarioNuevoImpl = new();
+            SettingsDatabase settingsDatabase = new();
+            UsuarioNuevoImplement UsuarioNuevoImpl = new(settingsDatabase);
             UsuarioNuevoService UsuarioNuevoServicio = new(UsuarioNuevoImpl.GetClientesNuevos());
 
             // Rango de Fechas
