@@ -157,6 +157,25 @@ namespace ClientesNuevos.Domain.Test
             Assert.AreEqual(resultEsperado, result);
         }
 
+        [Test]
+        public void Contardor_ReturnNumeroVecesIdAbogados()
+        {
+            List<Factura> ListaFacturas = GetTestListaFacturas();
+            FacturaService Servicio = new FacturaService(ListaFacturas);
+
+            DateTime FechaCreacion = new DateTime(2022, 4, 10);
+            DateTime FechaMax = new DateTime(2022, 4, 30);
+            var NumeroIdAbogados = 0;
+
+            int result = Servicio.Contador(FechaCreacion, FechaMax, NumeroIdAbogados);
+            // NumeroIdAbogados aumenta a uno ya que la FechaCreacion es menor a FechaMax
+            var resultEsperado = 1;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(resultEsperado, result);
+        }
+
+
         private List<Factura> GetTestListaFacturas()
         {
             List<Factura> testFacturas = new List<Factura>

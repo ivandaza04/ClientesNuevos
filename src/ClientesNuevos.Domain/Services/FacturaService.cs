@@ -69,17 +69,24 @@ namespace ClientesNuevos.Domain.Services
         // Valora cuantas veces IdAbogado esta presente en facturas de ListaFacturas 
         public int ContarIdAbogado(String IdAbogado, DateTime fechaMax)
         {
-            var NIdAbogados = 0;
+            var NumeroIdAbogados = 0;
             foreach (Factura factura in ListaFacturas)
                 if (factura.IdAbogado == IdAbogado)
                 {
-                    if (DateTime.Compare(factura.FechaCreacion, fechaMax) <= 0)
-                    {
-                        NIdAbogados++;
-                    }
+                    NumeroIdAbogados = Contador(factura.FechaCreacion, fechaMax, NumeroIdAbogados);
                 }
 
-            return NIdAbogados;
+            return NumeroIdAbogados;
+        }
+
+        // Aumentar a uno si la fechaCreacion es menor a fechaMax
+        public int Contador(DateTime fechaCreacion, DateTime fechaMax, int NumeroIdAbogados)
+        {
+            if (DateTime.Compare(fechaCreacion, fechaMax) <= 0)
+            {
+                NumeroIdAbogados++;
+            }
+            return NumeroIdAbogados;
         }
 
     }
