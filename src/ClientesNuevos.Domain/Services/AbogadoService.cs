@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClientesNuevos.Domain.Services
 {
-    public class AbogadoService : IAbogadoService
+    public class AbogadoService
     {
         List<Abogado> ListaAbogados = new List<Abogado>();
         Abogado Abogado = new Abogado();

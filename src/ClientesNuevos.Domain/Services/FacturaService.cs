@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClientesNuevos.Domain.Services
 {
-    public class FacturaService : IFacturaService
+    public class FacturaService
     {
         List<Factura> ListaFacturas = new List<Factura>();
         List<Factura> ListaFacturasFecha = new List<Factura>();
@@ -28,7 +28,7 @@ namespace ClientesNuevos.Domain.Services
         }
 
         // Valora todas las facturas de ListaFacturas si esta en las fechas establecidas y las agrega a ListaFacturasFecha
-        public List<Factura> ConsultaFacturasFecha(DateTime fechaMin, DateTime fechaMax)
+        public List<Factura> AgregaFacturasFecha(DateTime fechaMin, DateTime fechaMax)
         {
             foreach (Factura factura in ListaFacturas)
                 if (FacturaRangoFecha(factura.FechaCreacion, fechaMin, fechaMax) == true)

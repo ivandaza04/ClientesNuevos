@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClientesNuevos.Domain.Services
 {
-    public class UsuarioNuevoService : IUsuarioNuevoService
+    public class UsuarioNuevoService
     {
         List<UsuarioNuevo> ListaClientesNuevos = new List<UsuarioNuevo>();
         List<UsuarioNuevo> ListaClientesNuevosFecha = new List<UsuarioNuevo>();

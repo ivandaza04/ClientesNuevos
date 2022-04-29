@@ -40,7 +40,7 @@ namespace ClientesNuevos.Domain.Test
             var FechaMax = new DateTime(2022, 4, 30);
 
             // Agrega Facturas que esta en las fechas establecidas 
-            List<Factura> result = Servicio.ConsultaFacturasFecha(FechaMin, FechaMax);
+            List<Factura> result = Servicio.AgregaFacturasFecha(FechaMin, FechaMax);
             // resultEsperado es 3 facturas dentro del rango
             var resultEsperado = 3;
 
@@ -99,7 +99,7 @@ namespace ClientesNuevos.Domain.Test
             var FechaMax = new DateTime(2022, 4, 25);
 
             // Evalua Factura esta en las fechas establecidas 
-            List<Factura> ListaIdAbogados = Servicio.ConsultaFacturasFecha(FechaMin, FechaMax);
+            List<Factura> ListaIdAbogados = Servicio.AgregaFacturasFecha(FechaMin, FechaMax);
 
             // Agrega Usuarios Nuevos
             List<UsuarioNuevo> result = Servicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaIdAbogados,FechaMax);
