@@ -16,16 +16,15 @@ namespace ClientesNuevos.Domain.Test
         public void GetFacturas_ReturnFacturas()
         {
             // Crear objetos para agregar a ListaFacturas
-            List<Factura> ListaFacturas = GetTestListaFacturas();
+            List<Factura> ListaFacturas = GetListaFacturasTest();
             var FechaMin = new DateTime(2022, 4, 1);
-            DateTime FechaMax = new DateTime(2022, 4, 30);
-
+            var FechaMax = new DateTime(2022, 4, 30);
             FacturaService facturaService = new FacturaService(ListaFacturas, FechaMin, FechaMax);
 
             // Agrega Todas las facturas
             List<Factura> result = facturaService.ConsultaFacturas();
 
-            var numerodefacturas = 4;
+            var numerodefacturas = 3;
 
             Assert.IsNotNull(ListaFacturas.Count);
             Assert.AreEqual(numerodefacturas, result.Count);
@@ -35,7 +34,7 @@ namespace ClientesNuevos.Domain.Test
         public void ConsultaFacturasFecha_ReturnFacturasFecha()
         {
             // Crear objetos para agregar a ListaFacturas
-            List<Factura> ListaFacturas = GetTestListaFacturas();
+            List<Factura> ListaFacturas = GetListaFacturasTest();
             var FechaMin = new DateTime(2022, 4, 1);
             DateTime FechaMax = new DateTime(2022, 4, 30);
 
@@ -43,8 +42,8 @@ namespace ClientesNuevos.Domain.Test
 
             // Agrega Facturas que esta en las fechas establecidas 
             List<Factura> result = facturaService.AgregaFacturasFecha();
-            // resultEsperado es 3 facturas dentro del rango
-            var resultEsperado = 3;
+            // resultEsperado es 2 facturas dentro del rango
+            var resultEsperado = 2;
 
             Assert.IsNotNull(ListaFacturas.Count);
             Assert.IsNotNull(result.Count);
@@ -55,9 +54,9 @@ namespace ClientesNuevos.Domain.Test
         public void FacturaRangoFecha_ReturnTrue()
         {
             // Crear objetos para agregar a ListaFacturas
-            List<Factura> ListaFacturas = GetTestListaFacturas();
+            List<Factura> ListaFacturas = GetListaFacturasTest();
             var FechaMin = new DateTime(2022, 4, 1);
-            DateTime FechaMax = new DateTime(2022, 4, 30);
+            var FechaMax = new DateTime(2022, 4, 30);
 
             FacturaService facturaService = new FacturaService(ListaFacturas, FechaMin, FechaMax);
 
@@ -75,9 +74,9 @@ namespace ClientesNuevos.Domain.Test
         public void FacturaRangoFecha_ReturnFalse()
         {
             // Crear objetos para agregar a ListaFacturas
-            List<Factura> ListaFacturas = GetTestListaFacturas();
+            List<Factura> ListaFacturas = GetListaFacturasTest();
             var FechaMin = new DateTime(2022, 4, 1);
-            DateTime FechaMax = new DateTime(2022, 4, 30);
+            var FechaMax = new DateTime(2022, 4, 30);
 
             FacturaService facturaService = new FacturaService(ListaFacturas, FechaMin, FechaMax);
 
@@ -92,12 +91,12 @@ namespace ClientesNuevos.Domain.Test
         }
 
         [Test]
-        public void ConsultaUsuarioNuevo_ReturnUsuarioNuevos()
+        public void AgregarUsuarioNuevo_ReturnUsuarioNuevos()
         {
             // Crear objetos para agregar a ListaFacturas
-            List<Factura> ListaFacturas = GetTestListaFacturas();
+            List<Factura> ListaFacturas = GetListaFacturasTest();
             var FechaMin = new DateTime(2022, 4, 1);
-            DateTime FechaMax = new DateTime(2022, 4, 30);
+            var FechaMax = new DateTime(2022, 4, 30);
 
             FacturaService facturaService = new FacturaService(ListaFacturas, FechaMin, FechaMax);
 
@@ -106,9 +105,8 @@ namespace ClientesNuevos.Domain.Test
 
             // Agrega Usuarios Nuevos
             List<UsuarioNuevo> result = facturaService.AgregarIdAbogadoEsUsuarioNuevo(ListaFacturasFecha);
-            // Agrega 2 Usuarios Nuevos, ya que IdAbogado 1 y 2 son nuevos
-            // Ya que abogado IdAbogado = "3" no es nuevo
-            var resultEsperado = 2;
+            // Agrega 1 Usuarios Nuevos, ya que IdAbogado 2 es nuevos
+            var resultEsperado = 1;
 
             Assert.IsNotNull(ListaFacturas.Count);
             Assert.IsNotNull(ListaFacturasFecha.Count);
@@ -120,17 +118,17 @@ namespace ClientesNuevos.Domain.Test
         public void ContarIdAbogado_ReturnIgualA1()
         {
             // Crear objetos para agregar a ListaFacturas
-            List<Factura> ListaFacturas = GetTestListaFacturas();
+            List<Factura> ListaFacturas = GetListaFacturasTest();
             var FechaMin = new DateTime(2022, 4, 1);
             DateTime FechaMax = new DateTime(2022, 4, 30);
 
             FacturaService facturaService = new FacturaService(ListaFacturas, FechaMin, FechaMax);
 
-            var IdAbogado = "1";
+            var IdAbogado = "2";
 
             //  Evalua IdAbogado tiene Facturas anteriores
             int result = facturaService.ContarIdAbogado(IdAbogado);
-            // Numero de Facturas con el mismo IdAbogado = 1
+            // Numero de Facturas con el mismo IdAbogado = 2 es 1
             var resultEsperado = 1;
 
             Assert.IsNotNull(result);
@@ -141,17 +139,17 @@ namespace ClientesNuevos.Domain.Test
         public void ContarIdAbogado_ReturnMayorA1()
         {
             // Crear objetos para agregar a ListaFacturas
-            List<Factura> ListaFacturas = GetTestListaFacturas();
+            List<Factura> ListaFacturas = GetListaFacturasTest();
             var FechaMin = new DateTime(2022, 4, 1);
             DateTime FechaMax = new DateTime(2022, 4, 30);
 
             FacturaService facturaService = new FacturaService(ListaFacturas, FechaMin, FechaMax);
 
-            var IdAbogado = "3";
+            var IdAbogado = "1";
 
             //  Evalua IdAbogado tiene Facturas anteriores
             int result = facturaService.ContarIdAbogado(IdAbogado);
-            // Numero de Facturas con el mismo IdAbogado = 1
+            // Numero de Facturas con el mismo IdAbogado = 1 son 2
             var resultEsperado = 2;
 
             Assert.IsNotNull(result);
@@ -161,13 +159,13 @@ namespace ClientesNuevos.Domain.Test
         [Test]
         public void Contardor_ReturnNumeroVecesIdAbogados()
         {
-            List<Factura> ListaFacturas = GetTestListaFacturas();
+            List<Factura> ListaFacturas = GetListaFacturasTest();
             var FechaMin = new DateTime(2022, 4, 1);
             DateTime FechaMax = new DateTime(2022, 4, 30);
 
             FacturaService facturaService = new FacturaService(ListaFacturas,FechaMin, FechaMax);
 
-            var FechaCreacion = new DateTime(2022, 4, 25);
+            var FechaCreacion = new DateTime(2022, 4, 10);
 
             var NumeroIdAbogados = 0;
 
@@ -179,73 +177,31 @@ namespace ClientesNuevos.Domain.Test
             Assert.AreEqual(resultEsperado, result);
         }
 
-
-        private List<Factura> GetTestListaFacturas()
+        private List<Factura> GetListaFacturasTest()
         {
-            List<Factura> testFacturas = new List<Factura>
-            {
-                GetTestFactura1(),
-                GetTestFactura2(),
-                GetTestFactura3(),
-                GetTestFactura4()
-            };
-            return testFacturas;
+            List<Factura> facturasTest = new List<Factura>();
+            facturasTest.Add(GetFacturaTest1());
+            facturasTest.Add(GetFacturaTest2());
+            facturasTest.Add(GetFacturaTest3());
+            return facturasTest;
         }
 
-        private Factura GetTestFactura1()
+        private Factura GetFacturaTest1()
         {
-            Factura testFactura = new()
-            {
-                _id = "1",
-                Codigo = "Demo1",
-                IdAbogado = "1",
-                FechaCreacion = new DateTime(2022, 4, 5),
-                SubTotal = "test"
-            };
-
-            return testFactura;
+            Factura facturaTest = new Factura("1", "Demo1", "1", new DateTime(2022, 4, 5), "test");
+            return facturaTest;
         }
 
-        private Factura GetTestFactura2()
+        private Factura GetFacturaTest2()
         {
-            Factura testFactura = new()
-            {
-                _id = "2",
-                Codigo = "Demo1",
-                IdAbogado = "2",
-                FechaCreacion = new DateTime(2022, 4, 10),
-                SubTotal = "test"
-            };
-
-            return testFactura;
+            Factura facturaTest = new Factura("2", "Demo2", "1", new DateTime(2022, 3, 5), "test");
+            return facturaTest;
         }
 
-        private Factura GetTestFactura3()
+        private Factura GetFacturaTest3()
         {
-            Factura testFactura = new()
-            {
-                _id = "3",
-                Codigo = "Demo3",
-                IdAbogado = "3",
-                FechaCreacion = new DateTime(2022, 4, 20),
-                SubTotal = "test"
-            };
-
-            return testFactura;
-        }
-
-        private Factura GetTestFactura4()
-        {
-            Factura testFactura = new()
-            {
-                _id = "4",
-                Codigo = "Demo4",
-                IdAbogado = "3",
-                FechaCreacion = new DateTime(2022, 3, 16),
-                SubTotal = "test"
-            };
-
-            return testFactura;
+            Factura facturaTest = new Factura("3", "Demo3", "2", new DateTime(2022, 4, 10), "test");
+            return facturaTest;
         }
 
     }

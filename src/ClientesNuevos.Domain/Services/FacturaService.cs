@@ -19,11 +19,11 @@ namespace ClientesNuevos.Domain.Services
         {
         }
 
-        public FacturaService(List<Factura> listaFacturas, DateTime fechaMax, DateTime fechaMin)
+        public FacturaService(List<Factura> listaFacturas, DateTime fechaMin, DateTime fechaMax)
         {
             ListaFacturas = listaFacturas;
-            this.fechaMax = fechaMax;
             this.fechaMin = fechaMin;
+            this.fechaMax = fechaMax;
         }
 
         public List<Factura> ConsultaFacturas()
