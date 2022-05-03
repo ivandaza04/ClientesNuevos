@@ -22,8 +22,6 @@ namespace ClientesNuevos.Implement
             _Facturas = database.GetCollection<Factura>(facturasDatabase.FacturasCollectionName);
 
             ListaFacturas = new List<Factura>();
-
-            Factura = new Factura();
         }
 
         public List<Factura> GetFacturas()

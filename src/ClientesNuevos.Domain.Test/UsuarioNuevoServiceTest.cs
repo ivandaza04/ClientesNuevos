@@ -14,8 +14,10 @@ namespace ClientesNuevos.Domain.Test
         [Test]
         public void GetClientesNuevos_ReturnClientesNuevos()
         {
+            var FechaMin = new DateTime(2022, 4, 1);
+            var FechaMax = new DateTime(2022, 4, 30);
             List<UsuarioNuevo> ListaClientesNuevos = GetTestListaClientesNuevos();
-            UsuarioNuevoService Servicio = new(ListaClientesNuevos);
+            UsuarioNuevoService Servicio = new(ListaClientesNuevos, FechaMin, FechaMax);
 
             // Todos los registros de ClientesNuevos
             List<UsuarioNuevo> result = Servicio.ConsultaClientesNuevos();
@@ -27,60 +29,18 @@ namespace ClientesNuevos.Domain.Test
         [Test]
         public void GetClientesNuevosPorFecha_ReturnClientesNuevosEnFecha()
         {
-            List<UsuarioNuevo> ListaClientesNuevos = GetTestListaClientesNuevos();
-            UsuarioNuevoService Servicio = new(ListaClientesNuevos);
-
-            // Rango de Fechas
             var FechaMin = new DateTime(2022, 4, 1);
             var FechaMax = new DateTime(2022, 4, 30);
+            List<UsuarioNuevo> ListaClientesNuevos = GetTestListaClientesNuevos();
+            UsuarioNuevoService Servicio = new(ListaClientesNuevos, FechaMin, FechaMax);
 
             // Todos los registros de ClientesNuevos en las fechas establecidas 
-            List<UsuarioNuevo> ListaClientNuevoFecha = Servicio.ConsultaClientesNuevosFecha(FechaMin, FechaMax);
+            List<UsuarioNuevo> ListaClientNuevoFecha = Servicio.ConsultaClientesNuevosFecha();
             // resultEsperado es 1 ClientesNuevos en las fecha
             var resultEsperado = 1;
 
             Assert.IsNotNull(ListaClientNuevoFecha.Count);
             Assert.AreEqual(resultEsperado, ListaClientNuevoFecha.Count);
-        }
-
-        [Test]
-        public void ClienteRangoFecha_ReturnTrue()
-        {
-            List<UsuarioNuevo> ListaClientesNuevos = GetTestListaClientesNuevos();
-            UsuarioNuevoService Servicio = new(ListaClientesNuevos);
-
-            // Rango de Fechas
-            var FechaMin = new DateTime(2022, 4, 1);
-            var FechaMax = new DateTime(2022, 4, 30);
-
-            // Fecha de Factura en el rango
-            var FechaCreacionRangoTrue = new DateTime(2022, 4, 20);
-
-            // Evalua condicion de Fecha de Factura en el rango
-            bool resultTrue = Servicio.ClienteNuevoRangoFecha(FechaCreacionRangoTrue, FechaMin, FechaMax);
-
-            // Resultado condicion de Fecha de Factura en el rango
-            Assert.IsTrue(resultTrue);
-        }
-
-        [Test]
-        public void ClienteRangoFecha_ReturnFalse()
-        {
-            List<UsuarioNuevo> ListaClientesNuevos = GetTestListaClientesNuevos();
-            UsuarioNuevoService Servicio = new(ListaClientesNuevos);
-
-            // Rango de Fechas
-            var FechaMin = new DateTime(2022, 3, 25);
-            var FechaMax = new DateTime(2022, 4, 25);
-
-            // Fecha de Factura fuera del rango
-            var FechaCreacionRangoFalse = new DateTime(2022, 2, 25);
-
-            // Evalua condicion de Fecha de Factura fuera del rango
-            bool resultFalse = Servicio.ClienteNuevoRangoFecha(FechaCreacionRangoFalse, FechaMin, FechaMax);
-
-            // Resultado condicion de Fecha de Factura fuera del rango
-            Assert.IsFalse(resultFalse);
         }
 
         private List<UsuarioNuevo> GetTestListaClientesNuevos()

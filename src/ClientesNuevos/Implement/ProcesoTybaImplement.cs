@@ -19,8 +19,6 @@ namespace ClientesNuevos.Implement
             var database = client.GetDatabase(procesoTybaDataBase.MonolegalDatabaseName);
 
             _ProcesoTyba = database.GetCollection<ProcesoTyba>(procesoTybaDataBase.ProcesosTybaCollectionName);
-
-            ProcesoTyba = new ProcesoTyba();
         }
 
         public long CuentaProcesoTyba(string id)

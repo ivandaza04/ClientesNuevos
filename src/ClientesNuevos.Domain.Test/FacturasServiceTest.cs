@@ -51,46 +51,6 @@ namespace ClientesNuevos.Domain.Test
         }
 
         [Test]
-        public void FacturaRangoFecha_ReturnTrue()
-        {
-            // Crear objetos para agregar a ListaFacturas
-            List<Factura> ListaFacturas = GetListaFacturasTest();
-            var FechaMin = new DateTime(2022, 4, 1);
-            var FechaMax = new DateTime(2022, 4, 30);
-
-            FacturaService facturaService = new FacturaService(ListaFacturas, FechaMin, FechaMax);
-
-            // Fecha de Factura en el rango
-            var FechaCreacionRangoTrue = new DateTime(2022, 4, 20);
-
-            // Evalua condicion de Fecha de Factura en el rango
-            bool resultTrue = facturaService.FacturaRangoFecha(FechaCreacionRangoTrue);
-
-            // Resultado condicion de Fecha de Factura en el rango
-            Assert.IsTrue(resultTrue);
-        }
-
-        [Test]
-        public void FacturaRangoFecha_ReturnFalse()
-        {
-            // Crear objetos para agregar a ListaFacturas
-            List<Factura> ListaFacturas = GetListaFacturasTest();
-            var FechaMin = new DateTime(2022, 4, 1);
-            var FechaMax = new DateTime(2022, 4, 30);
-
-            FacturaService facturaService = new FacturaService(ListaFacturas, FechaMin, FechaMax);
-
-            // Fecha de Factura fuera del rango
-            var FechaCreacionRangoFalse = new DateTime(2022, 2, 25);
-
-            // Evalua condicion de Fecha de Factura fuera del rango
-            bool resultFalse = facturaService.FacturaRangoFecha(FechaCreacionRangoFalse);
-
-            // Resultado condicion de Fecha de Factura fuera del rango
-            Assert.IsFalse(resultFalse);
-        }
-
-        [Test]
         public void AgregarUsuarioNuevo_ReturnUsuarioNuevos()
         {
             // Crear objetos para agregar a ListaFacturas

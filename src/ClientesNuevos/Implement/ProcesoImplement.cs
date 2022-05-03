@@ -19,8 +19,6 @@ namespace ClientesNuevos.Implement
             var database = client.GetDatabase(procesosDatabase.MonolegalDatabaseName);
 
             _Procesos = database.GetCollection<Proceso>(procesosDatabase.ProcesosCollectionName);
-
-            Proceso = new Proceso();
         }
 
         public long CuentaProcesos(string id)

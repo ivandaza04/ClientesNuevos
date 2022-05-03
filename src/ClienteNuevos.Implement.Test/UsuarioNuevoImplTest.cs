@@ -15,17 +15,19 @@ namespace ClienteNuevos.Implement.Test
         [Test]
         public void CreateUsuarioNuevo()
         {
+            var FechaMin = new DateTime(2022, 4, 1);
+            var FechaMax = new DateTime(2022, 4, 30);
+
             SettingsDatabase settingsDatabase = new();
             FacturaImplement FacturaImpl = new(settingsDatabase);
             UsuarioNuevoImplement UsuarioNuevoImpl = new(settingsDatabase);
-            FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
+            FacturaService FacturaServicio = new(FacturaImpl.GetFacturas(), FechaMin, FechaMax);
 
-            var FechaMin = new DateTime(2022, 4, 1);
-            var FechaMax = new DateTime(2022, 4, 30);
-            List<Factura> ListaFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
+            
+            List<Factura> ListaFacturasEnFecha = FacturaServicio.AgregaFacturasFecha();
 
             // ListaUsuariosNuevos del mes de Abril
-            List<UsuarioNuevo> ListaUsuariosNuevos = FacturaServicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaFacturasEnFecha, FechaMax);
+            List<UsuarioNuevo> ListaUsuariosNuevos = FacturaServicio.AgregarIdAbogadoEsUsuarioNuevo(ListaFacturasEnFecha);
 
             // Crear usuarios en tabla ClientesNuevos de SGP
             foreach (UsuarioNuevo usuario in ListaUsuariosNuevos)
@@ -41,38 +43,5 @@ namespace ClienteNuevos.Implement.Test
             Assert.AreEqual(result, ListaClienteNuevos.Count);
         }
 
-        [Test]
-        public void ConsultarClientesNuevos()
-        {
-            SettingsDatabase settingsDatabase = new();
-            UsuarioNuevoImplement UsuarioNuevoImpl = new(settingsDatabase);
-            UsuarioNuevoService UsuarioNuevoServicio = new(UsuarioNuevoImpl.GetClientesNuevos());
-
-            List<UsuarioNuevo> ListaClienteNuevos = UsuarioNuevoServicio.ConsultaClientesNuevos();
-            // Son 5 ClienteNuevos
-            var resultEsperado = 5;
-
-            Assert.IsNotNull(ListaClienteNuevos);
-            Assert.AreEqual(resultEsperado, ListaClienteNuevos.Count);
-        }
-
-        [Test]
-        public void ConsultarClientesNuevosFecha()
-        {
-            SettingsDatabase settingsDatabase = new();
-            UsuarioNuevoImplement UsuarioNuevoImpl = new(settingsDatabase);
-            UsuarioNuevoService UsuarioNuevoServicio = new(UsuarioNuevoImpl.GetClientesNuevos());
-
-            // Rango de Fechas
-            var FechaMin = new DateTime(2022, 4, 10);
-            var FechaMax = new DateTime(2022, 4, 30);
-
-            List<UsuarioNuevo> ListaClienteNuevosFecha = UsuarioNuevoServicio.ConsultaClientesNuevosFecha(FechaMin, FechaMax);
-            // Son 5 ClienteNuevos
-            var resultEsperado = 2;
-
-            Assert.IsNotNull(ListaClienteNuevosFecha);
-            Assert.AreEqual(resultEsperado, ListaClienteNuevosFecha.Count);
-        }
     }
 }

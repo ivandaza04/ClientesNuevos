@@ -11,10 +11,14 @@ namespace ClientesNuevos.Domain.Services
     {
         List<UsuarioNuevo> ListaClientesNuevos = new List<UsuarioNuevo>();
         List<UsuarioNuevo> ListaClientesNuevosFecha = new List<UsuarioNuevo>();
+        DateTime fechaMin;
+        DateTime fechaMax;
 
-        public UsuarioNuevoService(List<UsuarioNuevo> listaClientesNuevos)
+        public UsuarioNuevoService(List<UsuarioNuevo> listaClientesNuevos, DateTime fechaMin, DateTime fechaMax)
         {
             ListaClientesNuevos = listaClientesNuevos;
+            this.fechaMin = fechaMin;
+            this.fechaMax = fechaMax;
         }
 
         public List<UsuarioNuevo> ConsultaClientesNuevos()
@@ -22,32 +26,19 @@ namespace ClientesNuevos.Domain.Services
             return ListaClientesNuevos;
         }
 
-        public List<UsuarioNuevo> ConsultaClientesNuevosFecha(DateTime fechaMin, DateTime fechaMax)
+        public List<UsuarioNuevo> ConsultaClientesNuevosFecha()
         {
-            foreach (UsuarioNuevo cliente in ListaClientesNuevos)
-                if (ClienteNuevoRangoFecha(cliente.FechaCreacionFactura, fechaMin, fechaMax) == true)
-                    ListaClientesNuevosFecha.Add(cliente);
+            foreach (UsuarioNuevo usuario in ListaClientesNuevos)
+                AgregarUsuarioNuevoFecha(usuario);
 
             return ListaClientesNuevosFecha;
         }
 
-        // Valora si la FechaCreacion del ClienteNuevo esta en rango de fechas
-        public bool ClienteNuevoRangoFecha(DateTime FechaCreacion, DateTime fechaMin, DateTime fechaMax)
+        public void AgregarUsuarioNuevoFecha(UsuarioNuevo usuario)
         {
-            // Compara FechaCreacion con fechaMin, -1 es mayor, 0 es igual, 1 es mayor
-            var FacturaAnteriorFechaMin = DateTime.Compare(FechaCreacion, fechaMin);
-            // Compara FechaCreacion con fechaMax, -1 es mayor, 0 es igual, 1 es mayor
-            var FacturaAnteriorFechaMax = DateTime.Compare(FechaCreacion, fechaMax);
-
-            // Si la fecha Factura es mayor a FechaMin
-            if (FacturaAnteriorFechaMin >= 0)
-                // Si la fecha Factura es menor a FechaMax
-                if (FacturaAnteriorFechaMax <= 0)
-                    return true;
-                else
-                    return false;
-            else
-                return false;
+            RangoFechaService rangoFecha = new RangoFechaService(fechaMin, fechaMax);
+            if (rangoFecha.ValidarRangoFecha(usuario.FechaCreacionFactura) == true)
+                ListaClientesNuevosFecha.Add(usuario);
         }
 
     }

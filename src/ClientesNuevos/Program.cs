@@ -44,14 +44,11 @@ namespace ClientesNuevos
             // Consulta UsuarioNuevo en las fechas
             List<UsuarioNuevo> ListaUsuariosNuevos = FacturaServicio.AgregarIdAbogadoEsUsuarioNuevo(ListaFacturasEnFecha);
             // Crear usuarios en colleccion ClientesNuevos de SGP
-            foreach (UsuarioNuevo usuario in ListaUsuariosNuevos)
-                {
-                    UsuarioNuevoImpl.CreateUsuarioNuevo(usuario);
-                }
+            UsuarioNuevoImpl.CrearListaClienteNuevos(ListaUsuariosNuevos);
 
             // ListaClienteNuevosFecha en colleccion ClientesNuevos
-            UsuarioNuevoService UsuarioNuevoServicio = new(UsuarioNuevoImpl.GetClientesNuevos());
-            List<UsuarioNuevo> ListaClienteNuevosFecha = UsuarioNuevoServicio.ConsultaClientesNuevosFecha(FechaMin, FechaMax);
+            UsuarioNuevoService UsuarioNuevoServicio = new(UsuarioNuevoImpl.GetClientesNuevos(), FechaMin, FechaMax);
+            List<UsuarioNuevo> ListaClienteNuevosFecha = UsuarioNuevoServicio.ConsultaClientesNuevosFecha();
 
             // Consulta Info Abogados Email, Nombre, Activo y Ciudad
             AbogadoService AbogadoServicio = new(AbogadoImpl.GetAbogados());

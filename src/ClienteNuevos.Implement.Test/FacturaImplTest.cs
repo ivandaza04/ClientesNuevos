@@ -15,9 +15,12 @@ namespace ClienteNuevos.Implement.Test
         [Test]
         public void CreateFacturas_ReturnFactura()
         {
+            var FechaMin = new DateTime(2022, 4, 1);
+            var FechaMax = new DateTime(2022, 4, 30);
+
             SettingsDatabase settingsDatabase = new();
             FacturaImplement FacturaImpl = new(settingsDatabase);
-            FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
+            FacturaService FacturaServicio = new(FacturaImpl.GetFacturas(), FechaMin, FechaMax);
 
             // Crea fecturas en la collecion
             foreach (Factura factura in GetTestListaFacturas())
@@ -31,9 +34,12 @@ namespace ClienteNuevos.Implement.Test
         [Test]
         public void GetFacturas_ReturnFacturas()
         {
+            var FechaMin = new DateTime(2022, 4, 1);
+            var FechaMax = new DateTime(2022, 4, 30);
+
             SettingsDatabase settingsDatabase = new();
             FacturaImplement FacturaImpl = new(settingsDatabase);
-            FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
+            FacturaService FacturaServicio = new(FacturaImpl.GetFacturas(), FechaMin, FechaMax);
 
             List<Factura> ListaFacturas = FacturaServicio.ConsultaFacturas();
             var resultEsperado = 19;
@@ -45,14 +51,14 @@ namespace ClienteNuevos.Implement.Test
         [Test]
         public void ConsultaFacturasFecha_ReturnFacturaFecha()
         {
-            SettingsDatabase settingsDatabase = new();
-            FacturaImplement FacturaImpl = new(settingsDatabase);
-            FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
-
             var FechaMin = new DateTime(2022, 4, 1);
             var FechaMax = new DateTime(2022, 4, 30);
 
-            List<Factura> ListaFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
+            SettingsDatabase settingsDatabase = new();
+            FacturaImplement FacturaImpl = new(settingsDatabase);
+            FacturaService FacturaServicio = new(FacturaImpl.GetFacturas(), FechaMin, FechaMax);
+
+            List<Factura> ListaFacturasEnFecha = FacturaServicio.AgregaFacturasFecha();
             // Factura en el mes de Abril
             var resultEsperado = 9;
 
@@ -63,15 +69,16 @@ namespace ClienteNuevos.Implement.Test
         [Test]
         public void ConsultaUsuarioNuevo_ReturnUsuarioNuevos()
         {
-            SettingsDatabase settingsDatabase = new();
-            FacturaImplement FacturaImpl = new(settingsDatabase);
-            FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
-
             var FechaMin = new DateTime(2022, 4, 1);
             var FechaMax = new DateTime(2022, 4, 30);
-            List<Factura> ListaFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
 
-            List<UsuarioNuevo> ListaUsuariosNuevos = FacturaServicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaFacturasEnFecha, FechaMax);
+            SettingsDatabase settingsDatabase = new();
+            FacturaImplement FacturaImpl = new(settingsDatabase);
+            FacturaService FacturaServicio = new(FacturaImpl.GetFacturas(), FechaMin, FechaMax);
+
+            List<Factura> ListaFacturasEnFecha = FacturaServicio.AgregaFacturasFecha();
+
+            List<UsuarioNuevo> ListaUsuariosNuevos = FacturaServicio.AgregarIdAbogadoEsUsuarioNuevo(ListaFacturasEnFecha);
             // Factura con usuario nuevos en Abril
             var resultEsperado = 5;
 

@@ -22,8 +22,6 @@ namespace ClientesNuevos.Implement
             _Abogados = database.GetCollection<Abogado>(abogadosDatabase.AbogadosCollectionName);
 
             ListaAbogados = new List<Abogado>();
-
-            Abogado = new Abogado();
         }
 
         public List<Abogado> GetAbogados()

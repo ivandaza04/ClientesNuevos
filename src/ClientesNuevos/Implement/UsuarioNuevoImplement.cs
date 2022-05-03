@@ -22,8 +22,6 @@ namespace ClientesNuevos.Implement
             _UsuarioNuevo = database.GetCollection<UsuarioNuevo>(clienteNuevoDatabase.ClientesNuevosCollectionName);
 
             ListaClientesNuevos = new List<UsuarioNuevo>();
-
-            Usuario = new UsuarioNuevo();
         }
 
         public List<UsuarioNuevo> GetClientesNuevos()
@@ -45,6 +43,14 @@ namespace ClientesNuevos.Implement
             }
 
                 return usuario;
+        }
+
+        public void CrearListaClienteNuevos(List<UsuarioNuevo> ListaClientesNuevos)
+        {
+            foreach (UsuarioNuevo cliente in ListaClientesNuevos)
+            {
+                CreateUsuarioNuevo(cliente);
+            }
         }
     }
 }
