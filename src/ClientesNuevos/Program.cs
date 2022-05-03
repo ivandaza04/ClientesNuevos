@@ -38,11 +38,11 @@ namespace ClientesNuevos
             Console.WriteLine("Espere...!");
 
             // Consulta Facturas en las fechas
-            FacturaService FacturaServicio = new(FacturaImpl.GetFacturas());
-            List<Factura> ListaFacturasEnFecha = FacturaServicio.ConsultaFacturasFecha(FechaMin, FechaMax);
+            FacturaService FacturaServicio = new(FacturaImpl.GetFacturas(), FechaMin, FechaMax);
+            List<Factura> ListaFacturasEnFecha = FacturaServicio.AgregaFacturasFecha();
 
             // Consulta UsuarioNuevo en las fechas
-            List<UsuarioNuevo> ListaUsuariosNuevos = FacturaServicio.ConsultaIdAbogadoEsUsuarioNuevo(ListaFacturasEnFecha, FechaMax);
+            List<UsuarioNuevo> ListaUsuariosNuevos = FacturaServicio.AgregarIdAbogadoEsUsuarioNuevo(ListaFacturasEnFecha);
             // Crear usuarios en colleccion ClientesNuevos de SGP
             foreach (UsuarioNuevo usuario in ListaUsuariosNuevos)
                 {

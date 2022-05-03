@@ -46,7 +46,8 @@ namespace ClientesNuevos.Domain.Test
         [Test]
         public void ClienteRangoFecha_ReturnTrue()
         {
-            UsuarioNuevoService Servicio = new();
+            List<UsuarioNuevo> ListaClientesNuevos = GetTestListaClientesNuevos();
+            UsuarioNuevoService Servicio = new(ListaClientesNuevos);
 
             // Rango de Fechas
             var FechaMin = new DateTime(2022, 4, 1);
@@ -65,7 +66,8 @@ namespace ClientesNuevos.Domain.Test
         [Test]
         public void ClienteRangoFecha_ReturnFalse()
         {
-            UsuarioNuevoService Servicio = new();
+            List<UsuarioNuevo> ListaClientesNuevos = GetTestListaClientesNuevos();
+            UsuarioNuevoService Servicio = new(ListaClientesNuevos);
 
             // Rango de Fechas
             var FechaMin = new DateTime(2022, 3, 25);

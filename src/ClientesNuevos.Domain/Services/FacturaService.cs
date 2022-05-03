@@ -15,10 +15,6 @@ namespace ClientesNuevos.Domain.Services
         DateTime fechaMax;
         DateTime fechaMin;
 
-        public FacturaService()
-        {
-        }
-
         public FacturaService(List<Factura> listaFacturas, DateTime fechaMin, DateTime fechaMax)
         {
             ListaFacturas = listaFacturas;
